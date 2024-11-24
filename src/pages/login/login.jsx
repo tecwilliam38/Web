@@ -30,8 +30,7 @@ function Login() {
                 localStorage.setItem("sessionToken", response.data.token);
                 localStorage.setItem("sessionId", response.data.id_admin);
                 localStorage.setItem("sessionEmail", response.data.email);
-                localStorage.setItem("sessionName", response.data.name);
-                // api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
+                localStorage.setItem("sessionName", response.data.name);                
                  api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
                 navigate("/appointments")
             } else {
