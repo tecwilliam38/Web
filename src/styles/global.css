@@ -19,8 +19,8 @@ select {
     width: 100%;
 }
 
-.react-modal-overlay{
-    background-color: rgba(0,0,0,0.5);
+.overlay-custom-class-name{
+    background-color: rgba(0,0,0,0.9);
     position: fixed;
     top: 0;
     bottom: 0;

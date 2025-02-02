@@ -24,9 +24,7 @@ function Appointment(props) {
                 </button>
             </div>
             <button onClick={() => props.clickDelete(props.id_appointment)}
-                className="btn btn-sm btn-danger"
-                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                >
+                className="btn btn-sm btn-danger">
                 <i className="bi bi-trash"></i>
             </button>
         </td>
