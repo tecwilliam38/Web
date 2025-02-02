@@ -4,7 +4,5 @@ import "./styles/global.css"
 import Rotas from "./rotas"
 
 createRoot(document.getElementById('root')).render(
-  
   <Rotas/>
-  
 )

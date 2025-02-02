@@ -43,7 +43,7 @@ function AppointmentAdd() {
 
             if (response.data) {
                 setBarbers(response.data);
-                if(id_appointment > 0){
+                if (id_appointment > 0) {
                     LoadAppointment(id_appointment);
                 }
             }
@@ -81,7 +81,7 @@ function AppointmentAdd() {
             }
             else
                 alert("Erro ao listar serviços");
-                navigate("/appointments");
+            navigate("/appointments");
         }
     }
 
@@ -109,7 +109,7 @@ function AppointmentAdd() {
         }
     }
 
-     async function SaveAppointment() {
+    async function SaveAppointment() {
         const json = {
             id_user: idUser,
             id_barber: idBarber,
@@ -118,17 +118,17 @@ function AppointmentAdd() {
             booking_hour: bookingHour
         };
 
-         try {
-             const response = id_appointment > 0 ?
-                 await api.put("/admin/agenda/" + id_appointment, json)
-             :
-             await api.post("/admin/agenda", json);
+        try {
+            const response = id_appointment > 0 ?
+                await api.put("/admin/agenda/" + id_appointment, json)
+                :
+                await api.post("/admin/agenda", json);
 
             if (response.data) {
                 navigate("/appointments");
             }
 
-         } catch (error) {
+        } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
                     return navigate("/");
@@ -137,8 +137,8 @@ function AppointmentAdd() {
             }
             else
                 alert("Erro ao salvar dados");
-         }
-     }
+        }
+    }
 
     useEffect(() => {
         LoadUsers();
@@ -152,7 +152,6 @@ function AppointmentAdd() {
 
     return <>
         <Navbar />
-
         <div className="container-fluid mt-page">
             <div className="row col-lg-4 offset-lg-4">
                 <div className="col-12 mt-2 text-center">
@@ -169,8 +168,8 @@ function AppointmentAdd() {
                         <select name="user" id="user"
                             value={idUser} onChange={(e) => setIdUser(e.target.value)} >
                             <option value="0">Selecione o Cliente</option>
-                            {users.rows?.map((u)=>{
-                                return(
+                            {users.rows?.map((u) => {
+                                return (
                                     <option key={u.id_user} value={u.id_user} >{u.name}</option>
                                 )
                             })}
@@ -186,15 +185,12 @@ function AppointmentAdd() {
                         <select name="Barber" id="Barber"
                             value={idBarber} onChange={(e) => setIdBarber(e.target.value)} >
                             <option value="0">Selecione o barbeiro</option>
-
                             {barbers.map(d => {
                                 return <option key={d.id_barber} value={d.id_barber}>{d.name}</option>
                             })}
-
                         </select>
                     </div>
                 </div>
-
                 <div className="col-12 mt-3">
                     <label htmlFor="service" className="form-label">Serviço</label>
                     <div className="form-control mb-2">
@@ -204,8 +200,9 @@ function AppointmentAdd() {
                             {services.map(s => {
                                 return <option key={s.id_service}
                                     value={s.id_service}>{s.description}</option>
-                            })}
-
+                            }
+                            )
+                            }
                         </select>
                     </div>
                 </div>
@@ -257,7 +254,7 @@ function AppointmentAdd() {
                             Cancelar
                         </Link>
                         <button
-                            onClick={SaveAppointment} 
+                            onClick={SaveAppointment}
                             className="btn btn-primary" type="button">
                             Salvar Dados
                         </button>

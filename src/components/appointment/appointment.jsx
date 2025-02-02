@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import api from "../../constants/api";
+import { useEffect, useState } from "react";
 
 function Appointment(props) {
     //2024-11-15T08:30:00
@@ -21,7 +24,9 @@ function Appointment(props) {
                 </button>
             </div>
             <button onClick={() => props.clickDelete(props.id_appointment)}
-                className="btn btn-sm btn-danger">
+                className="btn btn-sm btn-danger"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                >
                 <i className="bi bi-trash"></i>
             </button>
         </td>
