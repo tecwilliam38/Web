@@ -127,11 +127,16 @@ function AppointmentAdd() {
                 await api.post("/admin/agenda", json);
 
             if (response.data?.id_appointment) {
-                navigate("/appointments");
+                toast("Agendamento realizado com sucesso!")
+                setTimeout(() => {
+                    navigate("/appointments");
+                }, 5000);
             }
             else {
                 toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
-                    setBookingDate(""), setBookingHour(""));
+                 setTimeout(() => {
+                     setBookingDate(""), setBookingHour("")                    
+                 }, 6000))
             }
         } catch (error) {
             if (error.response?.data.error) {
@@ -156,11 +161,11 @@ function AppointmentAdd() {
     }, [idBarber]);
 
     return <>
-     <ToastContainer
-                    className='Toastify__toast-body'
-                    autoClose={5000}
-                    closeOnClick
-                    position="top-center" />
+        <ToastContainer
+            className='Toastify__toast-body'
+            autoClose={5000}
+            closeOnClick
+            position="top-center" />
         <Navbar />
         <div className="container-fluid mt-page">
             <div className="row col-lg-4 offset-lg-4 rounded shadow-lg pb-3">
