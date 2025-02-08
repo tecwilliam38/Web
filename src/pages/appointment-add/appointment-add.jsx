@@ -124,10 +124,13 @@ function AppointmentAdd() {
                 :
                 await api.post("/admin/agenda", json);
 
-            if (response.data) {
+            if (response.data?.id_appointment) {
                 navigate("/appointments");
             }
-
+            else {
+                alert("Data indisponível, selecione outro Horário ou dia por gentileza.",
+                    setBookingDate(""), setBookingHour(""));
+            }
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
