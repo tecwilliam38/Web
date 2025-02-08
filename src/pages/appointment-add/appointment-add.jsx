@@ -238,14 +238,14 @@ function AppointmentAdd() {
                             <option value="13:30">13:30</option>
                             <option value="14:00">14:00</option>
                             <option value="14:30">14:30</option>
-                            <option value="15:00">14:30</option>
-                            <option value="15:30">14:30</option>
-                            <option value="16:00">14:30</option>
-                            <option value="16:30">14:30</option>
-                            <option value="17:00">14:30</option>
-                            <option value="17:30">14:30</option>
-                            <option value="18:00">14:30</option>
-                            <option value="18:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:30">18:30</option>
                         </select>
                     </div>
                 </div>
