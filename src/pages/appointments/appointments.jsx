@@ -120,7 +120,7 @@ function Appointments() {
     return (
         <div className="container-fluid mt-page">
             <Navbar />
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center mb-4 p-2">
                 <div>
                     <h2 className="d-inline me-5">Agendamentos</h2>
                     <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
@@ -148,8 +148,8 @@ function Appointments() {
                 </div>
             </div>
 
-            <div>
-                <table className="table table-hover">
+            
+                <table className="table table-hover shadow rounded">
                     <thead>
                         <tr>
                             <th scope="col">Cliente</th>
@@ -181,7 +181,7 @@ function Appointments() {
                         })}
                     </tbody>
                 </table>
-            </div>
+            
         </div>
     )
 }

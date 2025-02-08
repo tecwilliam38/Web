@@ -153,16 +153,16 @@ function AppointmentAdd() {
     return <>
         <Navbar />
         <div className="container-fluid mt-page">
-            <div className="row col-lg-4 offset-lg-4">
-                <div className="col-12 mt-2 text-center">
-                    <h2 >
+            <div className="row col-lg-4 offset-lg-4 rounded shadow-lg pb-3">
+                <div className="col-12 mt-1 text-center">
+                    <h2>
                         {
                             id_appointment > 0 ? "Editar Agendamento" : "Novo Agendamento"
                         }
                     </h2>
                 </div>
 
-                <div className="col-12 mt-4">
+                <div className="col-12 mt-2">
                     <label htmlFor="user" className="form-label">Cliente</label>
                     <div className="form-control mb-2">
                         <select name="user" id="user"
@@ -179,7 +179,7 @@ function AppointmentAdd() {
                     </div>
                 </div>
 
-                <div className="col-12 mt-4">
+                <div className="col-12 mt-2">
                     <label htmlFor="Barber" className="form-label">Barbeiro</label>
                     <div className="form-control mb-2">
                         <select name="Barber" id="Barber"
@@ -191,7 +191,7 @@ function AppointmentAdd() {
                         </select>
                     </div>
                 </div>
-                <div className="col-12 mt-3">
+                <div className="col-12 mt-2">
                     <label htmlFor="service" className="form-label">Serviço</label>
                     <div className="form-control mb-2">
                         <select name="service" id="service"
@@ -207,7 +207,7 @@ function AppointmentAdd() {
                     </div>
                 </div>
 
-                <div className="col-6 mt-3">
+                <div className="col-6 mt-2">
                     <label htmlFor="bookingDate" className="form-label">Data</label>
                     <input type="date" className="form-control" name="bookingDate" id="bookingDate"
                         value={bookingDate}
@@ -215,7 +215,7 @@ function AppointmentAdd() {
                     />
                 </div>
 
-                <div className="col-6 mt-3">
+                <div className="col-6 mt-2">
                     <label htmlFor="bookingHour" className="form-label">Horário</label>
                     <div className="form-control mb-2">
                         <select name="bookingHour" id="bookingHour"
@@ -247,7 +247,7 @@ function AppointmentAdd() {
                     </div>
                 </div>
 
-                <div className="col-12 mt-4">
+                <div className="col-12 mt-3">
                     <div className="d-flex justify-content-end">
                         <Link to="/appointments"
                             className="btn btn-outline-primary me-3">
