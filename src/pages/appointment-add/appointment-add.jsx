@@ -3,6 +3,8 @@ import Navbar from "../../components/navbar/navbar.jsx";
 import { useEffect, useState } from "react";
 import api from "../../constants/api.js";
 
+import { ToastContainer, toast } from 'react-toastify';
+
 function AppointmentAdd() {
 
     const navigate = useNavigate();
@@ -128,7 +130,7 @@ function AppointmentAdd() {
                 navigate("/appointments");
             }
             else {
-                alert("Data indisponível, selecione outro Horário ou dia por gentileza.",
+                toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
                     setBookingDate(""), setBookingHour(""));
             }
         } catch (error) {
@@ -154,6 +156,11 @@ function AppointmentAdd() {
     }, [idBarber]);
 
     return <>
+     <ToastContainer
+                    className='Toastify__toast-body'
+                    autoClose={5000}
+                    closeOnClick
+                    position="top-center" />
         <Navbar />
         <div className="container-fluid mt-page">
             <div className="row col-lg-4 offset-lg-4 rounded shadow-lg pb-3">
