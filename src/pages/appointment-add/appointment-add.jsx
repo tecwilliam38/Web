@@ -126,18 +126,19 @@ function AppointmentAdd() {
                 :
                 await api.post("/admin/agenda", json);
 
-            if (response.data?.id_appointment) {
+            // if (response.data?.id_appointment) {
+            if (response.data) {
                 toast("Agendamento realizado com sucesso!")
                 setTimeout(() => {
                     navigate("/appointments");
                 }, 5000);
             }
-            else {
-                toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
-                 setTimeout(() => {
-                     setBookingDate(""), setBookingHour("")                    
-                 }, 6000))
-            }
+            // else {
+            //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
+            //      setTimeout(() => {
+            //          setBookingDate(""), setBookingHour("")                    
+            //      }, 6000))
+            // }
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)

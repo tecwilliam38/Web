@@ -40,7 +40,7 @@ function Navbar() {
                                 {localStorage.getItem("sessionName")}
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end">
-                                <li><Link className="dropdown-item" to="#">Meu Perfil</Link></li>
+                                <li><Link className="dropdown-item" to="/appointments/profile">Meu Perfil</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><button className="dropdown-item" onClick={Logout}>Desconectar</button></li>
                             </ul>
