@@ -1,6 +1,17 @@
-import { useNavigate } from "react-router-dom";
-import api from "../../constants/api";
-import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
+
+Appointment.propTypes={
+    booking_date: PropTypes.date,
+    booking_hour: PropTypes.DateTimeFormat,
+    cliente: PropTypes.string,
+    barber: PropTypes.string,
+    service: PropTypes.string,
+    price: PropTypes.number,
+    clickEdit: PropTypes.func,
+    id_appointment: PropTypes.number,
+    clickDelete: PropTypes.func,
+}
+
 
 function Appointment(props) {
     //2024-11-15T08:30:00
