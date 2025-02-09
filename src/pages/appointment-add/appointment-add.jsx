@@ -153,11 +153,12 @@ function AppointmentAdd() {
     useEffect(() => {
         LoadUsers();
         LoadBarbers();
-
-    }, []);
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]);
 
     useEffect(() => {
         LoadServices(idBarber);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idBarber]);
 
     return <>
