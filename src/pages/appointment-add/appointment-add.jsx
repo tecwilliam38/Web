@@ -167,8 +167,8 @@ function AppointmentAdd() {
             closeOnClick
             position="top-center" />
         <Navbar />
-        <div className="container-fluid mt-page">
-            <div className="row col-lg-4 offset-lg-4 rounded shadow-lg pb-3">
+        <div className="container-fluid mt-page mb-5">
+            <div className="row col-lg-4 offset-lg-4 rounded shadow-lg px-4 py-3">
                 <div className="col-12 mt-1 text-center">
                     <h2>
                         {

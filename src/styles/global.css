@@ -8,6 +8,7 @@ body {
 
 .mt-page {
     margin-top: 90px;
+    border-radius: 12px;
 }
 
 select {

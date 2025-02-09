@@ -30,7 +30,7 @@ function Navbar() {
                         <Link className="nav-link active" to="/appointments">Agendamentos</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/barbers">Barbeiros</Link>
+                        <Link className="nav-link" to="/appointments/barbers">Barbeiros</Link>
                     </li>
                 </ul>
                 <ul className="navbar-nav ">
