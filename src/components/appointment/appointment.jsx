@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 function Appointment(props) {
     //2024-11-15T08:30:00
     const dt = new Date(props.booking_date);
-    // const dt = new Date(props.booking_date);
 
     // caso a data pare de funcionar, tem essa alternativa:
     // let data = new Date(props.booking_date);

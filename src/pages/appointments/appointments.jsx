@@ -90,11 +90,8 @@ function Appointments() {
             });
 
             if (response.data) {
-                setAppointments(response.data);
-                console.log(response.booking_date);
-                
+                setAppointments(response.data)                
             }
-
         } catch (error) {
             if (error.response?.data.error) {
 
