@@ -91,6 +91,8 @@ function Appointments() {
 
             if (response.data) {
                 setAppointments(response.data);
+                console.log(response.booking_date);
+                
             }
 
         } catch (error) {

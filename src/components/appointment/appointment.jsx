@@ -4,15 +4,20 @@ import { useEffect, useState } from "react";
 
 function Appointment(props) {
     //2024-11-15T08:30:00
-    const dt = new Date(props.booking_date + "T" + props.booking_hour);
+    const dt = new Date(props.booking_date);
+    // const dt = new Date(props.booking_date);
+
+    // caso a data pare de funcionar, tem essa alternativa:
+    // let data = new Date(props.booking_date);
+    // const dataBooking = new Intl.DateTimeFormat('pt-BR', { dataStyle: "short" }).format(data)
 
     return <tr>
         <td>{props.cliente}</td>
         <td>{props.barber}</td>
         <td>{props.service}</td>
-        <td>{
-            new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)
-        } - {props.booking_hour}h</td>
+        <td>
+            {new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)}-{props.booking_hour}h
+        </td>
         <td className="text-end">{
             new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price)
         }</td>
