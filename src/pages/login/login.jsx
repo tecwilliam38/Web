@@ -69,7 +69,7 @@ function Login() {
                                     className="form-control"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)} />
-                                    <Link onClick={()=>setShowPass("text")}>Exibir senha</Link>
+                                    {/* <Link onClick={()=>setShowPass("text")}>Exibir senha</Link> */}
                             </div>
                             <div className="mt-3 mb-5">
                                 <button onClick={HandleLogin} className="btn btn-primary w-100" type="button">Login</button>
