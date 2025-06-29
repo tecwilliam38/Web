@@ -7,6 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import * as Icon from 'react-bootstrap-icons';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import CookieBanner from "../../components/cookiebanner/index.jsx";
 
 
 function Appointments() {
@@ -119,6 +120,7 @@ function Appointments() {
 
     return (
         <div className="container-fluid mt-page">
+            <CookieBanner/>
             <Navbar />
             <div className="row">
                 <div className="col-1 col-xg-12 bg-dark">
