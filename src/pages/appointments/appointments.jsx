@@ -5,7 +5,8 @@ import api from "../../constants/api.js";
 import Appointment from "../../components/appointment/appointment.jsx";
 import { confirmAlert } from "react-confirm-alert";
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
+import * as Icon from 'react-bootstrap-icons';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 
 function Appointments() {
@@ -23,21 +24,21 @@ function Appointments() {
     }
 
     function ClickDelete(id_appointment) {
-      confirmAlert({
-        title: "Exclusão",
-        message: "Confirma exclusão desse agendamento?",
-        buttons: [
-            {
-                label: "Sim",
-                onClick: () => DeleteAppointment(id_appointment)
-            },
-            {
-                label: "Não",
-                onClick: () => { }
-            }
-        ],
+        confirmAlert({
+            title: "Exclusão",
+            message: "Confirma exclusão desse agendamento?",
+            buttons: [
+                {
+                    label: "Sim",
+                    onClick: () => DeleteAppointment(id_appointment)
+                },
+                {
+                    label: "Não",
+                    onClick: () => { }
+                }
+            ],
             overlayClassName: "overlay-custom-class-name"
-    });
+        });
     }
 
     async function DeleteAppointment(id) {
@@ -90,7 +91,7 @@ function Appointments() {
             });
 
             if (response.data) {
-                setAppointments(response.data)                
+                setAppointments(response.data)
             }
         } catch (error) {
             if (error.response?.data.error) {
@@ -111,56 +112,103 @@ function Appointments() {
     }
 
 
-    useEffect(() => {
-        LoadBarbers();
-        LoadAppointments();
-    }, []);
+    // useEffect(() => {
+    //     LoadBarbers();
+    //     LoadAppointments();
+    // }, []);
 
     return (
         <div className="container-fluid mt-page">
             <Navbar />
-            <div className="d-flex justify-content-between align-items-center mb-4 p-2">
-                <div>
-                    <h2 className="d-inline me-5">Agendamentos</h2>
-                    <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
+            <div className="row">
+                <div className="col-1 col-xg-12 bg-dark">
+                    <ul class="nav flex-column mb-5">
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-speedometer2" style={{ fontSize: '3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-map-fill" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-calendar3" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-geo-alt-fill" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-person-fill" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-people-fill" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-graph-up" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link className="p-3">
+                                <i className="bi bi-gear-fill" style={{ fontSize: '2.3rem', color: '#fff' }}></i>
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
-                <div className="d-flex nav-right justify-content-end">
-                    <input id="startDate" className="form-control" type="date"
-                        onChange={(e) => setDtStart(e.target.value)} />
-                    <span className="m-2">Até</span>
-                    <input id="endtDate" className="form-control" type="date"
-                        onChange={(e) => setDtEnd(e.target.value)} />
-                    <div className="form-control ms-2 me-2">
-                        <select name="barber" id="barber" value={idBarber} onChange={ChangeBarber}>
-                            <option value="">Todos os Barbeiros</option>
-                            {
-                                barbers.map((data) => {
-                                    return <option key={data.id_barber}
-                                        value={data.id_barber}>
-                                        {data.name}
-                                    </option>
-                                })
-                            }
-                        </select>
-                    </div>
-                    <button onClick={LoadAppointments} className="btn btn-primary" type="button">Filtrar</button>
-                </div>
-            </div>
+                <div className="col-11 col-xg-12">
 
-            
-                <table className="table table-hover shadow rounded">
-                    <thead>
-                        <tr>
-                            <th scope="col">Cliente</th>
-                            <th scope="col">Barbeiro</th>
-                            <th scope="col">Serviço</th>
-                            <th scope="col">Data/Hora</th>
-                            <th scope="col" className="text-end">Valor</th>
-                            <th scope="col" className="col-buttons"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {appointments?.map((ap) => {
+                    <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">
+                        <div>
+                            <h2 className="d-inline me-5">Agendamentos</h2>
+                            <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
+                        </div>
+                        <div className="d-flex nav-right justify-content-end">
+                            <input id="startDate" className="form-control" type="date"
+                                onChange={(e) => setDtStart(e.target.value)} />
+                            <span className="m-2">Até</span>
+                            <input id="endtDate" className="form-control" type="date"
+                                onChange={(e) => setDtEnd(e.target.value)} />
+                            <div className="form-control ms-2 me-2">
+                                <select name="barber" id="barber" value={idBarber} onChange={ChangeBarber}>
+                                    <option value="">Todos os Técnicos</option>
+                                    {
+                                        barbers.map((data) => {
+                                            return <option key={data.id_barber}
+                                                value={data.id_barber}>
+                                                {data.name}
+                                            </option>
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <button onClick={LoadAppointments} className="btn btn-outline-secondary" type="button">Filtrar</button>
+                        </div>
+                    </div>
+
+
+                    <table className="table table-hover shadow rounded">
+                        <thead>
+                            <tr>
+                                <th scope="col" className="h3">Cliente</th>
+                                <th scope="col" className="h3">Técnico</th>
+                                <th scope="col" className="h3">Serviço</th>
+                                <th scope="col" className="h3">Data/Hora</th>
+                                <th scope="col" className="h3 text-end">Valor</th>
+                                <th scope="col" className="col-buttons"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* {appointments?.map((ap) => {
                             return (
                                 <>
                                     <Appointment
@@ -177,10 +225,12 @@ function Appointments() {
                                     />
                                 </>
                             )
-                        })}
-                    </tbody>
-                </table>
-            
+                        })} */}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
         </div>
     )
 }

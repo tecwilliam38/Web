@@ -1,24 +1,48 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/login/login";
+import LoginScreen from "./pages/login/login";
 import Register from "./pages/register/register"
 import Appointments from "./pages/appointments/appointments";
 import AppointmentAdd from "./pages/appointment-add/appointment-add";
 import BarbersComponent from "./pages/barbers";
 import ProfileScreen from "./pages/profile/profile";
+import PublicRoute from "./constants/publicRoute";
+import ProtectedRoute from "./constants/protectedRoute";
 
 
 function Rotas() {
     return <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Login />} />
+            <Route
+                path="/"
+                element={
+                    <PublicRoute>
+                        <LoginScreen />
+                    </PublicRoute>
+                }
+            />
+            <Route
+                path="/appointments"
+                element={
+                    <ProtectedRoute>
+                        <Appointments />
+                    </ProtectedRoute>
+                }
+            />
+                {/* <Route path="/appointments" element={<Appointments />} /> */}
+            {/* <Route path="/" element={<LoginScreen />} /> */}
             <Route path="/register" element={<Register />} />
-            <Route path="/appointments" element={<Appointments />} />
             <Route path="/appointments/profile" element={<ProfileScreen />} />
             <Route path="/appointments/barbers" element={<BarbersComponent />} />
             <Route path="/appointments/add" element={<AppointmentAdd />} />
             <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
         </Routes>
     </BrowserRouter>
+    // path="/home"
+    // element={
+    //     <ProtectedRoute>
+    //         <Appointments />
+    //     </ProtectedRoute>
+    // }
 }
 
 export default Rotas;

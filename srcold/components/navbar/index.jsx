@@ -1,28 +1,25 @@
-import "./navbar.css";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import api from "../../constants/api";
-import { useAuth } from "../../constants/authContext";
+import React from 'react'
+import logo from '../../assets/logo.png'
+import { useAuth } from '../../constants/authContext'
+import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar() {
-
+export default function NavbarHome() {
     const navigate = useNavigate();
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
-       function Logout() {
+    function Logout() {
         logout();
         navigate("/");
-    }  
-
-    return <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-navbar bg-primary" data-bs-theme="dark">
-        <Link className="navbar-brand" to="/appointments">
-            <img className="navbar-logo px-4" src={logo} />
+    }
+    return (<nav className="navbar navbar-expand-lg justify-content-around navbar-dark bg-dark">
+        <Link className="navbar-brand" href="#">
+            <img src={logo} alt="William" className='logo-style' />
         </Link>
-        <div className="container-fluid">
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="container-fluid bg-light">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
+            <span className="navbar-toggler-icon"></span>
+        </button>
+            <div className="collapse navbar-collapse ms-auto" id="navbarNav">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
                         <Link className="nav-link active" to="/appointments">Agendamentos</Link>
@@ -34,7 +31,7 @@ function Navbar() {
                 <ul className="navbar-nav ">
                     <li className="nav-item">
                         <div className="btn-group">
-                            <button type="button" className="btn btn-outline-dark dropdown-toggle px-2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button type="button" className="btn btn-primary dropdown-toggle px-2" data-bs-toggle="dropdown" aria-expanded="false">
                                 {localStorage.getItem("sessionName")}
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end">
@@ -45,23 +42,9 @@ function Navbar() {
                         </div>
                     </li>
                 </ul>
+                <button type='submit' onClick={Logout} className='btn btn-primary btn-lg'>Sair</button>
             </div>
         </div>
-
     </nav>
+    )
 }
-
-export default Navbar;
-
-{/* <nav className="navbar  navbar-expand-lg bg-primary">
-
-
-
-      
-
-        </ul>
-    </div>
-
-</div>
-
-</nav> */}
