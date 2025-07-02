@@ -1,21 +1,17 @@
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import api from "../../constants/api";
 import { useAuth } from "../../constants/authContext";
 
 function Navbar() {
 
     const navigate = useNavigate();
     const { logout, user } = useAuth();
-    
-    console.log(user.data);
-    
 
-       function Logout() {
+    function Logout() {
         logout();
         navigate("/");
-    }  
+    }
 
     return <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-navbar bg-primary" data-bs-theme="dark">
         <Link className="navbar-brand" to="/appointments">
@@ -38,7 +34,7 @@ function Navbar() {
                     <li className="nav-item">
                         <div className="btn-group">
                             <button type="button" className="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                {user.name}  
+                                {user.name}
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end">
                                 <li><Link className="dropdown-item" to="/appointments/profile">Meu Perfil</Link></li>

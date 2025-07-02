@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar.jsx"
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import api from "../../constants/api.js";
 import Appointment from "../../components/appointment/appointment.jsx";
 import { confirmAlert } from "react-confirm-alert";
@@ -82,58 +82,41 @@ function Appointments() {
             else
                 alert("Erro ao listar médicos.");
         }
+    }  
+
+    const LoadAppointments = useCallback(async () => {
+  try {
+    const response = await api.get("/admin/appointments",
+        { headers: {Authorization: `Bearer ${user.token}`},
+
+      params: { id_tecnico: idBarber, dt_start: dtStart, dt_end: dtEnd }
+    });
+    if (response.data) {
+      setAppointments(response.data);
+      console.log(response.data);
+      
     }
+  } catch (error) {
+    console.error(error);
+  }
+}, [idBarber, dtStart, dtEnd]);
 
-    async function LoadAppointments() {
-        try {
-            const response = await api.get("/admin/appointments", {
-                params: {
-                    id_tecnico: idBarber,
-                    dt_start: dtStart,
-                    dt_end: dtEnd
-                }
-            });
 
-            if (response.data) {
-                setAppointments(response.data)
-            }
-        } catch (error) {
-            if (error.response?.data.error) {
-
-                if (error.response.status == 401)
-                    return navigate("/");
-
-                alert(error.response?.data.error);
-            }
-            else
-                alert("Erro ao efetutar login. Tente novamente mais tarde.");
-        }
-    }
     useEffect(() => {
         LoadAppointments();
-    }, []);
+    }, [LoadAppointments]);
 
 
     function ChangeBarber(e) {
         setIdBarber(e.target.value);
     }
 
-
-    useEffect(() => {
-        // LoadBarbers();
-        if (user) {
-            LoadAppointments();
-        }
-    }, []);
-
-
-
-    return (
+     return (
         <div className="container-fluid mt-page">
             <CookieBanner />
             <Navbar />
             <div className="row">
-                <div className="col-1 col-xg-12 bg-dark">
+                {/* <div className="col-1 col-xg-12 bg-dark">
                     <ul class="nav flex-column mb-5">
                         <li class="nav-item">
                             <Link className="p-3">
@@ -176,7 +159,7 @@ function Appointments() {
                             </Link>
                         </li>
                     </ul>
-                </div>
+                </div> */}
                 <div className="col-11 col-xg-12">
 
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">
@@ -208,14 +191,14 @@ function Appointments() {
                     </div>
 
 
-                    <table className="table table-hover shadow rounded">
+                    <table className="table table-hover table-responsive shadow rounded">
                         <thead>
-                            <tr>
-                                <th scope="col" className="h3">Cliente</th>
-                                <th scope="col" className="h3">Técnico</th>
-                                <th scope="col" className="h3">Serviço</th>
-                                <th scope="col" className="h3">Data/Hora</th>
-                                <th scope="col" className="h3 text-end">Valor</th>
+                            <tr className="border">
+                                <th scope="col" className="h4">Cliente</th>
+                                <th scope="col" className="h4">Técnico</th>
+                                <th scope="col" className="h4">Serviço</th>
+                                <th scope="col" className="h4">Data/Hora</th>
+                                <th scope="col" className="h4 text-end">Competências</th>
                                 <th scope="col" className="col-buttons"></th>
                             </tr>
                         </thead>
@@ -228,8 +211,9 @@ function Appointments() {
                                             id_appointment={ap.id_appointment}
                                             service={ap.service}
                                             tecnico={ap.tecnico}
-                                            client={ap.client}
+                                            client={ap.cliente}
                                             price={ap.price}
+                                            skills={ap.specialty}
                                             booking_date={ap.booking_date}
                                             booking_hour={ap.booking_hour}
                                             clickEdit={ClickEdit}

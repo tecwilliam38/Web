@@ -13,3 +13,8 @@ i.icon-style{
      font-size: '2rem' !important;
       color: '#fff'!important;
 }
+th.h3{
+        cursor: col-resize;
+        border:1px solid #555;
+
+}
