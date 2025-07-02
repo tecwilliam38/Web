@@ -37,8 +37,8 @@ function Navbar() {
                 <ul className="navbar-nav ">
                     <li className="nav-item">
                         <div className="btn-group">
-                            <button type="button" className="btn btn-outline-dark dropdown-toggle px-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                {user.name}
+                            <button type="button" className="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                {user.name}  
                             </button>
                             <ul className="dropdown-menu dropdown-menu-end">
                                 <li><Link className="dropdown-item" to="/appointments/profile">Meu Perfil</Link></li>

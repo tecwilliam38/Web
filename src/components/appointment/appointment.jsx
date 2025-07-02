@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 Appointment.propTypes={
     booking_date: PropTypes.date,
     booking_hour: PropTypes.DateTimeFormat,
-    cliente: PropTypes.string,
-    barber: PropTypes.string,
+    client: PropTypes.string,
+    tecnico: PropTypes.string,
     service: PropTypes.string,
     price: PropTypes.number,
     clickEdit: PropTypes.func,
@@ -15,6 +15,9 @@ Appointment.propTypes={
 
 function Appointment(props) {
     //2024-11-15T08:30:00
+    console.log(props.client);
+    console.log(props.price);
+    
     const dt = new Date(props.booking_date);
 
     // caso a data pare de funcionar, tem essa alternativa:
@@ -22,8 +25,8 @@ function Appointment(props) {
     // const dataBooking = new Intl.DateTimeFormat('pt-BR', { dataStyle: "short" }).format(data)
 
     return <tr>
-        <td>{props.cliente}</td>
-        <td>{props.barber}</td>
+        <td>{props.client}</td>
+        <td>{props.tecnico}</td>
         <td>{props.service}</td>
         <td>
             {new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)}-{props.booking_hour}h

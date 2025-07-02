@@ -31,6 +31,14 @@
     background-repeat: no-repeat;
     object-position: left;
   }
+  @media (max-width: 768px) {
+  .bgImage {
+    background-image: url("../../assets/fundo.png"); /* Imagem otimizada para mobile */
+    background-size: contain; /* Ajusta sem cortar */
+    background-position: top center;
+  }
+}
+
 .b-form{
     /* border: 1px solid #ccc; */
     border-radius: 15px;

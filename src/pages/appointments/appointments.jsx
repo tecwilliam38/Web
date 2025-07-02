@@ -17,6 +17,7 @@ function Appointments() {
     const [barbers, setBarbers] = useState([]);
 
     const [idBarber, setIdBarber] = useState("");
+    const [idTecnico, setIdTecnico] = useState("");
     const [dtStart, setDtStart] = useState("");
     const [dtEnd, setDtEnd] = useState("");
 
@@ -79,13 +80,37 @@ function Appointments() {
                 alert("Erro ao listar médicos.");
         }
     }
+// async fuction LoadServicos(){
+//         try {
+//             const response = await api.get("/admin/appointments", {
+//                 params: {
+//                     id_tecnico: idTecnico,
+//                     dt_start: dtStart,
+//                     dt_end: dtEnd
+//                 }
+//             });
+//             if (response.data) {
+//                 setAppointments(response.data)
+//             }
+//         } catch (error) {
+//             if (error.response?.data.error) {
 
+//                 if (error.response.status == 401)
+//                     return navigate("/");
+
+//                 alert(error.response?.data.error);
+//             }
+//             else
+//                 alert("Erro ao efetutar login. Tente novamente mais tarde.");
+//         }
+
+//     }
     async function LoadAppointments() {
 
         try {
-            const response = await api.get("/admin/agenda", {
+            const response = await api.get("/admin/appointments", {
                 params: {
-                    id_barber: idBarber,
+                    id_tecnico: idBarber,
                     dt_start: dtStart,
                     dt_end: dtEnd
                 }
@@ -113,14 +138,14 @@ function Appointments() {
     }
 
 
-    // useEffect(() => {
-    //     LoadBarbers();
-    //     LoadAppointments();
-    // }, []);
+    useEffect(() => {
+        // LoadBarbers();
+        LoadAppointments();
+    }, []);
 
     return (
         <div className="container-fluid mt-page">
-            <CookieBanner/>
+            <CookieBanner />
             <Navbar />
             <div className="row">
                 <div className="col-1 col-xg-12 bg-dark">
@@ -210,15 +235,15 @@ function Appointments() {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {appointments?.map((ap) => {
+                            {appointments?.map((ap) => {
                             return (
                                 <>
                                     <Appointment
                                         key={ap.id_appointment}
                                         id_appointment={ap.id_appointment}
                                         service={ap.service}
-                                        barber={ap.barber}
-                                        cliente={ap.user}
+                                        tecnico={ap.tecnico}
+                                        client={ap.client}
                                         price={ap.price}
                                         booking_date={ap.booking_date}
                                         booking_hour={ap.booking_hour}
@@ -227,7 +252,7 @@ function Appointments() {
                                     />
                                 </>
                             )
-                        })} */}
+                        })}
                         </tbody>
                     </table>
 

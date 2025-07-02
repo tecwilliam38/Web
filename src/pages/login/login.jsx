@@ -10,7 +10,7 @@ import { useAuth } from "../../constants/authContext.jsx";
 function LoginScreen() {
 
     const navigate = useNavigate();
-    const {login} = useAuth();
+    const { login } = useAuth();
 
     const [showPpass, setShowPass] = useState("password");
     const [email, setEmail] = useState();
@@ -28,15 +28,15 @@ function LoginScreen() {
                 email,
                 password
             });
-              if (response.data) {
+            if (response.data) {
                 // Armazenar os dados da response em variáveis - "sessionToken, sessionId..."
                 const dados = await response.data;
-                api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;          
+                api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
                 login(dados); // Armazena no contexto e sessionStorage
-                navigate("/appointments");                
+                navigate("/appointments");
             } else {
                 console.log(response);
-            }            
+            }
         } catch (error) {
             if (error.response?.data.error) {
                 setMsg(error.response?.data.error);
@@ -44,53 +44,71 @@ function LoginScreen() {
                 setMsg("Ocorreu um erro ao efetuar login")
             }
             console.log(error);
-            
+
         }
     }
+    // <Link onClick={()=>setShowPass("text")}>Exibir senha</Link>
     return (
-        <div className="bgImage">
-            <div className="row">
-                <div className="col-sm-5 d-flex justify-content-center align-items-center text-center">
-                    <form className="form-signin mt-5">
-                        <img src={iconLogo} className="logo-signin mt-4" />
-                        <div className="px-4 pt-3 pb-2 ">
-                            {/* <h5 className="mb-4">Gerencie seus agendamentos de forma descomplicada.</h5>
-                            <h5 className="mb-4 text-secondary">Acesse sua conta</h5> */}
-                            <div className="mt-4">
-                                <input type="email" placeholder="E-mail"
-                                    className="form-control"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)} />
-                            </div>
-                            <div className="mt-2">
-                                <input type={showPpass} placeholder="Senha"
-                                    className="form-control"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)} />
-                                {/* <Link onClick={()=>setShowPass("text")}>Exibir senha</Link> */}
-                            </div>
-                            <div className="mt-3 mb-5">
-                                <button onClick={HandleLogin} className="btn btn-primary w-100" type="button">Login</button>
-                            </div>
+        <div className="bgImage container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+            <div className="row w-100">
+                <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                    <form className="form-signin w-100 px-4 py-5" style={{ maxWidth: '400px' }}>
+                        <div className="text-center">
+                            <img src={iconLogo} className="logo-signin mb-4" alt="logo" />
+                        </div>
 
-                            {
-                                msg.length > 0 &&
-                                <div className="alert alert-danger" role="alert">
-                                    {msg}
-                                </div>
-                            }
-                            <div>
-                                <span className="me-1">Clique e faça uma cotação.</span>
-                                <Link to="https://www.contate.me/5511915050713" className="ml-2">Contato!</Link>
+                        <input
+                            type="email"
+                            placeholder="E-mail"
+                            className="form-control mb-3"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+
+                        <input
+                            type={showPpass}
+                            placeholder="Senha"
+                            className="form-control mb-3"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+
+                        <div className="mb-3">
+                            <Link
+                                onClick={() => setShowPpass(showPpass === 'password' ? 'text' : 'password')}
+                                style={{ fontSize: '0.9rem', cursor: 'pointer' }}
+                            >
+                                {showPpass === 'password' ? 'Exibir senha' : 'Ocultar senha'}
+                            </Link>
+                        </div>
+
+                        <button
+                            onClick={HandleLogin}
+                            className="btn btn-primary w-100"
+                            type="button"
+                        >
+                            Login
+                        </button>
+
+                        {msg.length > 0 && (
+                            <div className="alert alert-danger mt-3" role="alert">
+                                {msg}
                             </div>
+                        )}
+
+                        <div className="mt-3 text-center">
+                            <span className="me-1">Clique e faça uma cotação.</span>
+                            <Link to="https://www.contate.me/5511915050713">Contato!</Link>
                         </div>
                     </form>
                 </div>
-                <div className="col-sm-7"></div>
 
-
+                <div className="col-md-6 d-none d-md-block">{/* Imagem ou conteúdo extra */}</div>
             </div>
         </div>
+
+
+
     )
 }
 
