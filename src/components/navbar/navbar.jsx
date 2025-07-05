@@ -1,6 +1,7 @@
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import iconLogo from "../../assets/iconLogo.png";
 import { useAuth } from "../../constants/authContext";
 
 function Navbar() {
@@ -15,7 +16,7 @@ function Navbar() {
 
     return <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-navbar bg-primary" data-bs-theme="dark">
         <Link className="navbar-brand" to="/appointments">
-            <img className="navbar-logo px-4" src={logo} />
+            <img className="navbar-logo px-4" src={iconLogo} />
         </Link>
         <div className="container-fluid">
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

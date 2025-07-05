@@ -1,8 +1,8 @@
 .navbar-logo {
     height: 10vh;
-    padding: 0;
-    margin: 0;
-    /* border:1px solid #fff */
+    width: 10vw;
+    padding: 0px;    
+    border-radius: 50%;    
 }
 .bg-navbar{
     background-color: #424242!important;    

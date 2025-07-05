@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-Appointment.propTypes = {
+Appointment.propTypes={
     booking_date: PropTypes.date,
     booking_hour: PropTypes.DateTimeFormat,
     client: PropTypes.string,
@@ -13,12 +13,11 @@ Appointment.propTypes = {
 }
 
 
-function Appointment(props) {
-    //2024-11-15T08:30:00    
+function Appointment(props) {    
     console.log(props.price);
-
+    
     const dt = new Date(props.booking_date);
-    const price = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);
+    const price = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);  
 
     return <tr>
         <td>{props.client}</td>
@@ -30,11 +29,15 @@ function Appointment(props) {
         <td className="text-end">{props.skills}</td>
         <td className="text-end">
             <div className="d-inline">
+                {/* <button onClick={() => props.clickEdit(props.id_appointment)}
+                    className="btn btn-sm btn-primary me-3">
+                    <i className="bi bi-pencil-square"></i>
+                </button> */}
             </div>
-            {/* <button onClick={() => props.clickDelete(props.id_appointment)}
+            <button onClick={() => props.clickDelete(props.id_appointment)}
                 className="btn btn-sm btn-danger">
                 <i className="bi bi-trash"></i>
-            </button> */}
+            </button>
         </td>
     </tr>
 }
