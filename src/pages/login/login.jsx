@@ -11,6 +11,8 @@ function LoginScreen() {
 
     const navigate = useNavigate();
     const { login } = useAuth();
+    const [visible, setVisible] = useState(false);
+
 
     const [showPpass, setShowPass] = useState("password");
     const [email, setEmail] = useState();
@@ -64,23 +66,44 @@ function LoginScreen() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-
-                        <input
-                            type={showPpass}
-                            placeholder="Senha"
-                            className="form-control mb-3"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-
-                        <div className="mb-3">
-                            <Link
-                                onClick={() => setShowPpass(showPpass === 'password' ? 'text' : 'password')}
-                                style={{ fontSize: '0.9rem', cursor: 'pointer' }}
+                        {/* <div className="position-relative">
+                            <input
+                                type={visible ? "text" : "password"}
+                                placeholder="Senha"
+                                className="form-control mb-3"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />                         
+                            <span
+                                className="input-group-text"
+                                onClick={() => setVisible(!visible)}
+                                style={{ cursor: "pointer" }}
                             >
-                                {showPpass === 'password' ? 'Exibir senha' : 'Ocultar senha'}
-                            </Link>
+                                <i className={`bi ${visible ? "bi-eye-slash" : "bi-eye"}`}></i>
+                            </span>
+                        </div> */}
+                        <div className="position-relative">
+                            <input
+                                type={visible ? "text" : "password"}
+                                className="form-control pe-5 mb-3"
+                                placeholder="Digite sua senha"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <i
+                                className={`bi ${visible ? "bi-eye-slash" : "bi-eye"} position-absolute`}
+                                onClick={() => setVisible(!visible)}
+                                style={{
+                                    fontSize: "1.3rem",
+                                    top: "50%",
+                                    right: "15px",
+                                    transform: "translateY(-50%)",
+                                    cursor: "pointer",
+                                    color: "#7b7e80"
+                                }}
+                            ></i>
                         </div>
+
 
                         <button
                             onClick={HandleLogin}
@@ -97,7 +120,7 @@ function LoginScreen() {
                         )}
 
                         <div className="mt-3 text-center">
-                            <span className="me-1">Clique e faça uma cotação.</span>
+                            <span className="me-1 text-dark">Clique e faça uma cotação.</span>
                             <Link to="https://www.contate.me/5511915050713">Contato!</Link>
                         </div>
                     </form>

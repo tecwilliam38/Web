@@ -164,7 +164,7 @@ function Appointments() {
 
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">
                         <div>
-                            <h2 className="d-inline me-5">Agendamentos</h2>
+                            <h2 className="d-inline me-5 h4 text-dark">Agendamentos</h2>
                             <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
                         </div>
                         <div className="d-flex nav-right justify-content-end">
