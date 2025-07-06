@@ -66,22 +66,6 @@ function LoginScreen() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        {/* <div className="position-relative">
-                            <input
-                                type={visible ? "text" : "password"}
-                                placeholder="Senha"
-                                className="form-control mb-3"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />                         
-                            <span
-                                className="input-group-text"
-                                onClick={() => setVisible(!visible)}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <i className={`bi ${visible ? "bi-eye-slash" : "bi-eye"}`}></i>
-                            </span>
-                        </div> */}
                         <div className="position-relative">
                             <input
                                 type={visible ? "text" : "password"}

@@ -7,6 +7,7 @@ import BarbersComponent from "./pages/barbers";
 import ProfileScreen from "./pages/profile/profile";
 import PublicRoute from "./constants/publicRoute";
 import ProtectedRoute from "./constants/protectedRoute";
+import ClientComponent from "./pages/clients";
 
 
 function Rotas() {
@@ -25,6 +26,14 @@ function Rotas() {
                 element={
                     <ProtectedRoute>
                         <Appointments />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/appointments/clients"
+                element={
+                    <ProtectedRoute>
+                        <ClientComponent />
                     </ProtectedRoute>
                 }
             />
