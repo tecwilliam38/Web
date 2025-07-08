@@ -66,23 +66,23 @@ function Appointments() {
         }
     }
 
-    async function LoadBarbers() {
-        try {
-            const response = await api.get("/barbers");
+    // async function LoadBarbers() {
+    //     try {
+    //         const response = await api.get("/barbers");
 
-            if (response.data) {
-                setBarbers(response.data);
-            }
-        } catch (error) {
-            if (error.response?.data.error) {
-                if (error.response.status == 401)
-                    return navigate("/");
-                alert(error.response?.data.error);
-            }
-            else
-                alert("Erro ao listar médicos.");
-        }
-    }  
+    //         if (response.data) {
+    //             setBarbers(response.data);
+    //         }
+    //     } catch (error) {
+    //         if (error.response?.data.error) {
+    //             if (error.response.status == 401)
+    //                 return navigate("/");
+    //             alert(error.response?.data.error);
+    //         }
+    //         else
+    //             alert("Erro ao listar médicos.");
+    //     }
+    // }  
 
     const LoadAppointments = useCallback(async () => {
   try {
@@ -114,7 +114,7 @@ function Appointments() {
             <CookieBanner />
             <Navbar />
             <div className="row">
-                {/* <div className="col-1 col-xg-12 bg-dark">
+                <div className="col-1 col-xg-12 bg-dark">
                     <ul class="nav flex-column mb-5">
                         <li class="nav-item">
                             <Link className="p-3">
@@ -157,7 +157,7 @@ function Appointments() {
                             </Link>
                         </li>
                     </ul>
-                </div> */}
+                </div>
                 <div className="col-11 col-xg-12">
 
                     <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">

@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar.jsx";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../constants/api.js";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,24 +9,24 @@ function AppointmentAdd() {
 
     const navigate = useNavigate();
     const { id_appointment } = useParams();
-    const [users, setUsers] = useState([]);
+
     const [clients, setClients] = useState([]);
-    const [barbers, setBarbers] = useState([]);
+    const [idClients, setIdClients] = useState("");
+    const [tecnicos, setTecnicos] = useState([]);
     const [services, setServices] = useState([]);
 
     const [idUser, setIdUser] = useState("");
-    const [idBarber, setIdBarber] = useState();
+    const [idTecnico, setIdTecnico] = useState();
     const [idService, setIdService] = useState("");
     const [bookingDate, setBookingDate] = useState("");
     const [bookingHour, setBookingHour] = useState("");
-    
+
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     async function LoadClients() {
-        const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
         try {
-            // const response = await api.get("/admin/users");
-            const response = await api.get("client/listar",  {
-         headers: { Authorization: `Bearer ${user.token}` }         
-        });
+            const response = await api.get("client/listar", {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
             if (response.data) {
                 setClients(response.data);
             }
@@ -43,12 +43,15 @@ function AppointmentAdd() {
         }
     }
 
-    async function LoadBarbers() {
+    async function LoadTecnicos() {
         try {
-            const response = await api.get("/barbers");
-
+            const response = await api.get("tecnicos/listar", {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
             if (response.data) {
-                setBarbers(response.data);
+                setTecnicos(response.data);
+                console.log(response.data);
+
                 if (id_appointment > 0) {
                     LoadAppointment(id_appointment);
                 }
@@ -60,7 +63,7 @@ function AppointmentAdd() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao listar médicos.");
+                alert("Erro ao listar técnicos.");
         }
     }
 
@@ -71,8 +74,8 @@ function AppointmentAdd() {
             const response = await api.get("/admin/agenda/" + id);
 
             if (response.data) {
-                setIdUser(response.data.id_user);
-                setIdBarber(response.data.id_barber);
+                setIdClients(response.data.id_client);
+                setIdTecnico(response.data.id_tecnico);
                 setIdService(response.data.id_service);
                 setBookingDate(response.data.booking_date);
                 setBookingHour(response.data.booking_hour);
@@ -97,7 +100,8 @@ function AppointmentAdd() {
             return;
 
         try {
-            const response = await api.get("/barbers/" + id + "/services");
+            // const response = await api.get("/barbers/" + id + "/services");
+            const response = await api.get("/tecnicos/" + id);
 
             if (response.data) {
                 setServices(response.data);
@@ -115,56 +119,56 @@ function AppointmentAdd() {
         }
     }
 
-    async function SaveAppointment() {
-        const json = {
-            id_user: idUser,
-            id_barber: idBarber,
-            id_service: idService,
-            booking_date: bookingDate,
-            booking_hour: bookingHour
-        };
+    // async function SaveAppointment() {
+    //     const json = {
+    //         id_client: idClients,
+    //         id_tecnico: idTecnico,
+    //         id_service: idService,
+    //         booking_date: bookingDate,
+    //         booking_hour: bookingHour
+    //     };
 
-        try {
-            const response = id_appointment > 0 ?
-                await api.put("/admin/agenda/" + id_appointment, json)
-                :
-                await api.post("/admin/agenda", json);
+    //     try {
+    //         const response = id_appointment > 0 ?
+    //             await api.put("/appointments/edit/" + id_appointment, json)
+    //             :
+    //             await api.post("/appointments/insert", json);
 
-            // if (response.data?.id_appointment) {
-            if (response.data) {
-                toast("Agendamento realizado com sucesso!")
-                setTimeout(() => {
-                    navigate("/appointments");
-                }, 5000);
-            }
-            // else {
-            //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
-            //      setTimeout(() => {
-            //          setBookingDate(""), setBookingHour("")                    
-            //      }, 6000))
-            // }
-        } catch (error) {
-            if (error.response?.data.error) {
-                if (error.response.status == 401)
-                    return navigate("/");
+    //         // if (response.data?.id_appointment) {
+    //         if (response.data) {
+    //             toast("Agendamento realizado com sucesso!")
+    //             setTimeout(() => {
+    //                 navigate("/appointments");
+    //             }, 3000);
+    //         }
+    //         // else {
+    //         //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
+    //         //      setTimeout(() => {
+    //         //          setBookingDate(""), setBookingHour("")                    
+    //         //      }, 6000))
+    //         // }
+    //     } catch (error) {
+    //         if (error.response?.data.error) {
+    //             if (error.response.status == 401)
+    //                 return navigate("/");
 
-                alert(error.response?.data.error);
-            }
-            else
-                alert("Erro ao salvar dados");
-        }
-    }
+    //             alert(error.response?.data.error);
+    //         }
+    //         else
+    //             alert("Erro ao salvar dados");
+    //     }
+    // }
 
     useEffect(() => {
         LoadClients();
-        LoadBarbers();
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+        LoadTecnicos();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
-        LoadServices(idBarber);
+        // LoadServices(idTecnico);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idBarber]);
+    }, [idTecnico]);
 
     return <>
         <ToastContainer
@@ -187,12 +191,12 @@ function AppointmentAdd() {
                     <label htmlFor="user" className="form-label">Cliente</label>
                     <div className="form-control mb-2">
                         <select name="user" id="user"
-                            value={idUser} onChange={(e) => setIdUser(e.target.value)} >
+                            value={idClients} onChange={(e) => setIdClients(e.target.value)} >
                             <option value="0">Selecione o Cliente</option>
-                            {users.rows?.map((u) => {
-                                return (
-                                    <option key={u.id_user} value={u.id_user} >{u.name}</option>
-                                )
+                            {clients?.map((c) => {
+                                return (<React.Fragment key={c.id_client}>
+                                    <option value={c.id_client} >{c.name}</option>
+                                </React.Fragment>)
                             })}
 
                         </select>
@@ -201,18 +205,20 @@ function AppointmentAdd() {
                 </div>
 
                 <div className="col-12 mt-2">
-                    <label htmlFor="Barber" className="form-label">Barbeiro</label>
+                    <label htmlFor="Tecnico" className="form-label">Técnico</label>
                     <div className="form-control mb-2">
-                        <select name="Barber" id="Barber"
-                            value={idBarber} onChange={(e) => setIdBarber(e.target.value)} >
-                            <option value="0">Selecione o barbeiro</option>
-                            {barbers.map(d => {
-                                return <option key={d.id_barber} value={d.id_barber}>{d.name}</option>
+                        <select name="Técnico" id="Tecnico"
+                            value={idTecnico} onChange={(e) => setIdTecnico(e.target.value)} >
+                            <option value="0">Selecione o técnico</option>
+                            {tecnicos?.map(t => {
+                                return (<React.Fragment key={t.id_tecnico}>
+                                    <option value={t.id_tecnico}>{t.name}</option>
+                                </React.Fragment>)
                             })}
                         </select>
                     </div>
                 </div>
-                <div className="col-12 mt-2">
+                {/* <div className="col-12 mt-2">
                     <label htmlFor="service" className="form-label">Serviço</label>
                     <div className="form-control mb-2">
                         <select name="service" id="service"
@@ -226,17 +232,17 @@ function AppointmentAdd() {
                             }
                         </select>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="col-6 mt-2">
+                {/* <div className="col-6 mt-2">
                     <label htmlFor="bookingDate" className="form-label">Data</label>
                     <input type="date" className="form-control" name="bookingDate" id="bookingDate"
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
                     />
-                </div>
+                </div> */}
 
-                <div className="col-6 mt-2">
+                {/* <div className="col-6 mt-2">
                     <label htmlFor="bookingHour" className="form-label">Horário</label>
                     <div className="form-control mb-2">
                         <select name="bookingHour" id="bookingHour"
@@ -266,9 +272,9 @@ function AppointmentAdd() {
                             <option value="18:30">18:30</option>
                         </select>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="col-12 mt-3">
+                {/* <div className="col-12 mt-3">
                     <div className="d-flex justify-content-end">
                         <Link to="/appointments"
                             className="btn btn-outline-primary me-3">
@@ -280,7 +286,7 @@ function AppointmentAdd() {
                             Salvar Dados
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </>

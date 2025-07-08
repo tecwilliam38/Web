@@ -10,8 +10,6 @@ import ProtectedRoute from "./constants/protectedRoute";
 import ClientComponent from "./pages/clients";
 import TecnicosComponent from "./pages/tecnicos";
 
-
-
 function Rotas() {
     return <BrowserRouter future={{ v7_startTransition: true }}>
         <Routes>
@@ -21,7 +19,7 @@ function Rotas() {
             <Route element={<ProtectedRoute />}>
                 <Route path="/appointments" element={<Appointments />} />
                 <Route path="/appointments/clients" element={<ClientComponent />} />
-                <Route path="/appointments/:id_appointment" element={<AppointmentAdd />} />
+                <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
                 <Route path="/appointments/add" element={<AppointmentAdd />} />
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
             </Route>
