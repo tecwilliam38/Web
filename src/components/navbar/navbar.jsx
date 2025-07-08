@@ -28,7 +28,7 @@ function Navbar() {
                         <Link className="nav-link active" to="/appointments">Agendamentos</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/appointments/barbers">Técnicos</Link>
+                        <Link className="nav-link" to="/appointments/tecnicos">Técnicos</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" user={user} to="/appointments/clients">Clientes</Link>

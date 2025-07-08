@@ -9,18 +9,18 @@ import "./style.css";
 
 function ClientComponent() {
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
   const [clients, setClients] = useState([]);
-  const [idClient, setIdClient] = useState("");  
+  const [idClient, setIdClient] = useState("");
   const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
   console.log(user.token);
-  
+
 
   async function LoadClients() {
     try {
-      const response = await api.get("client/listar",  {
-         headers: { Authorization: `Bearer ${user.token}` }         
-        });
+      const response = await api.get("client/listar", {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
 
       if (response.data) {
         setClients(response.data)
@@ -65,9 +65,10 @@ function ClientComponent() {
     <Navbar />
     <div className="container-fluid mt-page">
       <div className="row d-flex justify-content-center mb-5">
+        <div className="container-fluid border">
         {clients?.map((c) => {
           return <>
-            <div className="col-12  col-lg-3 col-md-12 mt-2" key={c.id_client}>
+            <div className="col-12  col-lg-12 col-md-12 mt-2" key={c.id_client}>
               <div className="card shadow-lg border card-shadow">
                 {/* <img className="icon-barber" src={icon == m ? icon.female : icon.male} alt="Imagem de capa do card" /> */}
                 <div className="card-body">
@@ -89,6 +90,7 @@ function ClientComponent() {
         })}
       </div>
     </div>
+  </div >
   </>
 
 }

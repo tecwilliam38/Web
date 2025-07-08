@@ -10,6 +10,7 @@ function AppointmentAdd() {
     const navigate = useNavigate();
     const { id_appointment } = useParams();
     const [users, setUsers] = useState([]);
+    const [clients, setClients] = useState([]);
     const [barbers, setBarbers] = useState([]);
     const [services, setServices] = useState([]);
 
@@ -19,12 +20,17 @@ function AppointmentAdd() {
     const [bookingDate, setBookingDate] = useState("");
     const [bookingHour, setBookingHour] = useState("");
 
-    async function LoadUsers() {
-        try {
-            const response = await api.get("/admin/users");
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
+    // async function LoadUsers() {
+    async function LoadClients() {
+        try {
+            // const response = await api.get("/admin/users");
+            const response = await api.get("client/listar",  {
+         headers: { Authorization: `Bearer ${user.token}` }         
+        });
             if (response.data) {
-                setUsers(response.data);
+                setClients(response.data);
             }
 
         } catch (error) {
@@ -152,7 +158,7 @@ function AppointmentAdd() {
     }
 
     useEffect(() => {
-        LoadUsers();
+        LoadClients();
         LoadBarbers();
          // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
