@@ -13,9 +13,9 @@ function TecnicosComponent() {
   const [tecnicos, setTecnicos] = useState([]);
   const [idTecnico, setIdTecnico] = useState("");
   const [services, setServices] = useState([])
-  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-
+  
   async function LoadTecnicos() {
+    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     try {
       const response = await api.get("tecnicos/listar", {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -66,8 +66,7 @@ function TecnicosComponent() {
       <div className="row d-flex justify-content-center mb-5">
         <div className="container-fluid border">
           {tecnicos?.map((t) => {
-            return <>
-              <div className="col-12  col-lg-12 col-md-12 mt-2" key={t.id_tecnico}>
+            return <div className="col-12  col-lg-12 col-md-12 mt-2" key={t.id_tecnico}>
                 <div className="card shadow-lg border card-shadow">
                   {/* <img className="icon-barber" src={icon == m ? icon.female : icon.male} alt="Imagem de capa do card" /> */}
                   <div className="card-body p-4">
@@ -86,8 +85,7 @@ function TecnicosComponent() {
                   })} */}
                   </div>
                 </div>
-              </div>
-            </>
+              </div>            
           })}
         </div>
       </div>

@@ -15,15 +15,13 @@ function AppointmentAdd() {
     const [services, setServices] = useState([]);
 
     const [idUser, setIdUser] = useState("");
-    const [idBarber, setIdBarber] = useState("");
+    const [idBarber, setIdBarber] = useState();
     const [idService, setIdService] = useState("");
     const [bookingDate, setBookingDate] = useState("");
     const [bookingHour, setBookingHour] = useState("");
-
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-
-    // async function LoadUsers() {
+    
     async function LoadClients() {
+        const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
         try {
             // const response = await api.get("/admin/users");
             const response = await api.get("client/listar",  {

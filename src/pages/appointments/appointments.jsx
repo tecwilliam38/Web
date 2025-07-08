@@ -202,9 +202,7 @@ function Appointments() {
                         </thead>
                         <tbody>
                             {appointments?.map((ap) => {
-                                return (
-                                    <>
-                                        <Appointment
+                                return (<Appointment
                                             key={ap.id_appointment}
                                             id_appointment={ap.id_appointment}
                                             service={ap.service}
@@ -217,7 +215,6 @@ function Appointments() {
                                             clickEdit={ClickEdit}
                                             clickDelete={ClickDelete}
                                         />
-                                    </>
                                 )
                             })}
                         </tbody>
