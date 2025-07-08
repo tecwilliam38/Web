@@ -29,12 +29,16 @@ function Appointment(props) {
         </td>
         <td className="text-end">{props.skills}</td>
         <td className="text-end">
-            <div className="d-inline">
+            <div className="d-inline me-3">
+                <button onClick={() => props.clickEdit(props.id_appointment)}
+                    className="btn btn-sm btn-primary">
+                    <i className="bi bi-pencil-square"></i>
+                </button>
             </div>
-            {/* <button onClick={() => props.clickDelete(props.id_appointment)}
+            <button onClick={() => props.clickDelete(props.id_appointment)}
                 className="btn btn-sm btn-danger">
                 <i className="bi bi-trash"></i>
-            </button> */}
+            </button>
         </td>
     </tr>
 }

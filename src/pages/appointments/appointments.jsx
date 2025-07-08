@@ -9,6 +9,7 @@ import * as Icon from 'react-bootstrap-icons';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import CookieBanner from "../../components/cookiebanner/index.jsx";
 import { useAuth } from "../../constants/authContext.jsx";
+import { toast, ToastContainer } from "react-toastify";
 
 
 function Appointments() {
@@ -24,8 +25,12 @@ function Appointments() {
 
     const { user } = useAuth();
 
+    // const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+
     function ClickEdit(id_appointment) {
-        navigate("/appointments/edit/" + id_appointment)
+        navigate("/appointments/edit/" + id_appointment,  {
+                headers: { Authorization: `Bearer ${user.token}` }
+            })
     }
 
     function ClickDelete(id_appointment) {
@@ -48,10 +53,14 @@ function Appointments() {
 
     async function DeleteAppointment(id) {
         try {
-            const response = await api.delete("/agenda/" + id);
-
-            if (response.data) {
-                LoadAppointments();
+            const response = await api.delete("/appointments/" + id, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            if (response?.data) {
+                toast("Agendamento excluído com sucesso!")
+                setTimeout(() => {
+                    LoadAppointments();                    
+                }, 5000);
             }
 
         } catch (error) {
@@ -111,6 +120,11 @@ function Appointments() {
 
      return (
         <div className="container-fluid mt-page">
+            <ToastContainer
+            className='Toastify__toast-body'
+            autoClose={5000}
+            closeOnClick
+            position="top-center" />
             <CookieBanner />
             <Navbar />
             <div className="row">

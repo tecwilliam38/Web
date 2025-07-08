@@ -22,6 +22,7 @@ function AppointmentAdd() {
     const [bookingHour, setBookingHour] = useState("");
 
     const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+
     async function LoadClients() {
         try {
             const response = await api.get("client/listar", {
@@ -39,7 +40,7 @@ function AppointmentAdd() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao listar pacientes");
+                alert("Erro ao listar Clientes");
         }
     }
 
@@ -50,8 +51,6 @@ function AppointmentAdd() {
             });
             if (response.data) {
                 setTecnicos(response.data);
-                console.log(response.data);
-
                 if (id_appointment > 0) {
                     LoadAppointment(id_appointment);
                 }
@@ -66,14 +65,13 @@ function AppointmentAdd() {
                 alert("Erro ao listar técnicos.");
         }
     }
-
-
     async function LoadAppointment(id) {
-
         try {
-            const response = await api.get("/admin/agenda/" + id);
-
-            if (response.data) {
+            // const response = await api.get("/admin/agenda/" + id);
+            const response = await api.get("/appointments/listar/" + id, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            if (response?.data) {
                 setIdClients(response.data.id_client);
                 setIdTecnico(response.data.id_tecnico);
                 setIdService(response.data.id_service);
@@ -84,13 +82,13 @@ function AppointmentAdd() {
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
-                    return navigate("/");
+                    // return navigate("/");
 
-                alert(error.response?.data.error);
+                    alert(error.response?.data.error);
             }
             else
                 alert("Erro ao listar serviços");
-            navigate("/appointments");
+            // navigate("/appointments");
         }
     }
 
@@ -98,13 +96,14 @@ function AppointmentAdd() {
 
         if (!id)
             return;
-
         try {
-            // const response = await api.get("/barbers/" + id + "/services");
-            const response = await api.get("/tecnicos/" + id);
+            const response = await api.get("/tecnicos/" + id + "/services", {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
 
             if (response.data) {
                 setServices(response.data);
+                console.log(response.data);
             }
 
         } catch (error) {
@@ -115,48 +114,53 @@ function AppointmentAdd() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao listar serviços");
+                alert("Erro ao listar Serviços");
         }
     }
 
-    // async function SaveAppointment() {
-    //     const json = {
-    //         id_client: idClients,
-    //         id_tecnico: idTecnico,
-    //         id_service: idService,
-    //         booking_date: bookingDate,
-    //         booking_hour: bookingHour
-    //     };
+    async function SaveAppointment() {
+        const json = {
+            id_client: idClients,
+            id_tecnico: idTecnico,
+            id_service: idService,
+            booking_date: bookingDate,
+            booking_hour: bookingHour
+        };
 
-    //     try {
-    //         const response = id_appointment > 0 ?
-    //             await api.put("/appointments/edit/" + id_appointment, json)
-    //             :
-    //             await api.post("/appointments/insert", json);
+        try {
+            const response = id_appointment > 0 ?
+                await api.put("/appointments/edit/" + id_appointment, json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                })
+                :
+                await api.post("/appointments/insert", json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                });
 
-    //         // if (response.data?.id_appointment) {
-    //         if (response.data) {
-    //             toast("Agendamento realizado com sucesso!")
-    //             setTimeout(() => {
-    //                 navigate("/appointments");
-    //             }, 3000);
-    //         }
-    //         // else {
-    //         //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
-    //         //      setTimeout(() => {
-    //         //          setBookingDate(""), setBookingHour("")                    
-    //         //      }, 6000))
-    //         // }
-    //     } catch (error) {
-    //         if (error.response?.data.error) {
-    //             if (error.response.status == 401)
-    //                 return navigate("/");
+            // if (response.data) {
+            if (response.data?.id_appointment) {
+                toast("Agendamento realizado com sucesso!")
+                setTimeout(() => {
+                    navigate("/appointments");
+                }, 3000);
+            }
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    alert("erro 401");
+                return navigate("/");
 
-    //             alert(error.response?.data.error);
-    //         }
-    //         else
-    //             alert("Erro ao salvar dados");
-    //     }
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao salvar dados");
+        }
+    }
+    // else {
+    //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
+    //      setTimeout(() => {
+    //          setBookingDate(""), setBookingHour("")                    
+    //      }, 6000))
     // }
 
     useEffect(() => {
@@ -166,7 +170,7 @@ function AppointmentAdd() {
     }, []);
 
     useEffect(() => {
-        // LoadServices(idTecnico);
+        LoadServices(idTecnico);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idTecnico]);
 
@@ -218,31 +222,30 @@ function AppointmentAdd() {
                         </select>
                     </div>
                 </div>
-                {/* <div className="col-12 mt-2">
+                <div className="col-12 mt-2">
                     <label htmlFor="service" className="form-label">Serviço</label>
                     <div className="form-control mb-2">
                         <select name="service" id="service"
-                            value={idService} onChange={(e) => setIdService(e.target.value)} >
+                            value={idService} onChange={(e) => setIdService(e.target.value)}
+                        >
                             <option value="0">Selecione o serviço</option>
-                            {services.map(s => {
+                            {services?.map(s => {
                                 return <option key={s.id_service}
                                     value={s.id_service}>{s.description}</option>
-                            }
-                            )
-                            }
+                            })}
                         </select>
                     </div>
-                </div> */}
+                </div>
 
-                {/* <div className="col-6 mt-2">
+                <div className="col-6 mt-2">
                     <label htmlFor="bookingDate" className="form-label">Data</label>
                     <input type="date" className="form-control" name="bookingDate" id="bookingDate"
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
                     />
-                </div> */}
+                </div>
 
-                {/* <div className="col-6 mt-2">
+                <div className="col-6 mt-2">
                     <label htmlFor="bookingHour" className="form-label">Horário</label>
                     <div className="form-control mb-2">
                         <select name="bookingHour" id="bookingHour"
@@ -272,9 +275,9 @@ function AppointmentAdd() {
                             <option value="18:30">18:30</option>
                         </select>
                     </div>
-                </div> */}
+                </div>
 
-                {/* <div className="col-12 mt-3">
+                <div className="col-12 mt-3">
                     <div className="d-flex justify-content-end">
                         <Link to="/appointments"
                             className="btn btn-outline-primary me-3">
@@ -286,7 +289,7 @@ function AppointmentAdd() {
                             Salvar Dados
                         </button>
                     </div>
-                </div> */}
+                </div>
             </div>
         </div>
     </>
