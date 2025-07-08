@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../constants/api";
 import Navbar from "../../components/navbar/navbar.jsx";
-import icon from "../../constants/icon.js";
+// import icon from "../../constants/icon.js";
 import "./style.css";
 
 

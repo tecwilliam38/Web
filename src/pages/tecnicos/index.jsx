@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../constants/api";
 import Navbar from "../../components/navbar/navbar.jsx";
-import icon from "../../constants/icon.js";
+// import icon from "../../constants/icon.js";
 import "./style.css";
 
 
@@ -67,8 +67,7 @@ function TecnicosComponent() {
         <div className="container-fluid border">
           {tecnicos?.map((t) => {
             return <div className="col-12  col-lg-12 col-md-12 mt-2" key={t.id_tecnico}>
-                <div className="card shadow-lg border card-shadow">
-                  {/* <img className="icon-barber" src={icon == m ? icon.female : icon.male} alt="Imagem de capa do card" /> */}
+                <div className="card shadow-lg border card-shadow">                  
                   <div className="card-body p-4">
                     <h5 className="card-title h2">{t.name}</h5>
                     <div className="row justify-content-between px-4">
