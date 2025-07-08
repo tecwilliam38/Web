@@ -86,7 +86,7 @@ function Appointments() {
 
     const LoadAppointments = useCallback(async () => {
   try {
-    const response = await api.get("/admin/appointments",
+    const response = await api.get("/appointments/listar",
         { headers: {Authorization: `Bearer ${user.token}`},
 
       params: { id_tecnico: idBarber, dt_start: dtStart, dt_end: dtEnd }
