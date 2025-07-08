@@ -93,8 +93,6 @@ function Appointments() {
     });
     if (response.data) {
       setAppointments(response.data);
-      console.log(response.data);
-      
     }
   } catch (error) {
     console.error(error);

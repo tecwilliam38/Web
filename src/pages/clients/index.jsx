@@ -9,17 +9,18 @@ import "./style.css";
 
 function ClientComponent() {
 
-  const navigate = useNavigate();
-  // const [barbers, setBarbers] = useState([]);
-  // const [idBarber, setIdBarber] = useState("");
+  const navigate = useNavigate();  
   const [clients, setClients] = useState([]);
-  const [idClient, setIdClient] = useState("");
-  // const [services, setServices] = useState([])
-
+  const [idClient, setIdClient] = useState("");  
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+  console.log(user.token);
+  
 
   async function LoadClients() {
     try {
-      const response = await api.get("/client/listar");
+      const response = await api.get("client/listar",  {
+         headers: { Authorization: `Bearer ${user.token}` }         
+        });
 
       if (response.data) {
         setClients(response.data)
@@ -29,7 +30,6 @@ function ClientComponent() {
         console.log(error.response.data.error);
     }
   }
-
   // async function LoadServices(id) {
 
   //   if (!id)
@@ -58,7 +58,7 @@ function ClientComponent() {
   useEffect(() => {
     LoadClients();
     // LoadServices();
-  },)
+  }, [])
   // const m = "M";
 
   return <>

@@ -10,7 +10,8 @@ import ProtectedRoute from "./constants/protectedRoute";
 import ClientComponent from "./pages/clients";
 
 
-function Rotas() {
+
+function Rotas() {    
     return <BrowserRouter>
         <Routes>
             <Route
@@ -21,7 +22,7 @@ function Rotas() {
                     </PublicRoute>
                 }
             />
-            <Route
+               <Route
                 path="/appointments"
                 element={
                     <ProtectedRoute>
@@ -37,13 +38,29 @@ function Rotas() {
                     </ProtectedRoute>
                 }
             />
+            <Route
+                path="/appointments/:id_appointment"
+                element={
+                    <ProtectedRoute>
+                        <AppointmentAdd />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/appointments/add"
+                element={
+                    <ProtectedRoute>
+                        <AppointmentAdd />
+                    </ProtectedRoute>
+                }
+            />
                 {/* <Route path="/appointments" element={<Appointments />} /> */}
             {/* <Route path="/" element={<LoginScreen />} /> */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/appointments/profile" element={<ProfileScreen />} />
-            <Route path="/appointments/barbers" element={<BarbersComponent />} />
-            <Route path="/appointments/add" element={<AppointmentAdd />} />
-            <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
+            {/* <Route path="/register" element={<Register />} /> */}
+            {/* <Route path="/appointments/profile" element={<ProfileScreen />} /> */}
+            {/* <Route path="/appointments/barbers" element={<BarbersComponent />} /> */}            
+            {/* <Route path="/appointments/add" element={<AppointmentAdd />} /> */}
+            {/* <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} /> */}
         </Routes>
     </BrowserRouter>
     // path="/home"
