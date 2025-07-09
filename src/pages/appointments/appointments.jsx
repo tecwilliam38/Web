@@ -28,9 +28,9 @@ function Appointments() {
     // const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
 
     function ClickEdit(id_appointment) {
-        navigate("/appointments/edit/" + id_appointment,  {
-                headers: { Authorization: `Bearer ${user.token}` }
-            })
+        navigate("/appointments/edit/" + id_appointment, {
+            headers: { Authorization: `Bearer ${user.token}` }
+        })
     }
 
     function ClickDelete(id_appointment) {
@@ -59,7 +59,7 @@ function Appointments() {
             if (response?.data) {
                 toast("Agendamento excluído com sucesso!")
                 setTimeout(() => {
-                    LoadAppointments();                    
+                    LoadAppointments();
                 }, 5000);
             }
 
@@ -74,39 +74,21 @@ function Appointments() {
                 alert("Erro ao excluir reserva");
         }
     }
-
-    // async function LoadBarbers() {
-    //     try {
-    //         const response = await api.get("/barbers");
-
-    //         if (response.data) {
-    //             setBarbers(response.data);
-    //         }
-    //     } catch (error) {
-    //         if (error.response?.data.error) {
-    //             if (error.response.status == 401)
-    //                 return navigate("/");
-    //             alert(error.response?.data.error);
-    //         }
-    //         else
-    //             alert("Erro ao listar médicos.");
-    //     }
-    // }  
-
     const LoadAppointments = useCallback(async () => {
-  try {
-    const response = await api.get("/appointments/listar",
-        { headers: {Authorization: `Bearer ${user.token}`},
+        try {
+            const response = await api.get("/appointments/listar",
+                {
+                    headers: { Authorization: `Bearer ${user.token}` },
 
-      params: { id_tecnico: idBarber, dt_start: dtStart, dt_end: dtEnd }
-    });
-    if (response.data) {
-      setAppointments(response.data);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}, [idBarber, dtStart, dtEnd]);
+                    params: { id_tecnico: idBarber, dt_start: dtStart, dt_end: dtEnd }
+                });
+            if (response.data) {
+                setAppointments(response.data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }, [idBarber, dtStart, dtEnd]);
 
 
     useEffect(() => {
@@ -118,13 +100,13 @@ function Appointments() {
         setIdBarber(e.target.value);
     }
 
-     return (
+    return (
         <div className="container-fluid mt-page">
             <ToastContainer
-            className='Toastify__toast-body'
-            autoClose={5000}
-            closeOnClick
-            position="top-center" />
+                className='Toastify__toast-body'
+                autoClose={5000}
+                closeOnClick
+                position="top-center" />
             <CookieBanner />
             <Navbar />
             <div className="row">
@@ -217,18 +199,18 @@ function Appointments() {
                         <tbody>
                             {appointments?.map((ap) => {
                                 return (<Appointment
-                                            key={ap.id_appointment}
-                                            id_appointment={ap.id_appointment}
-                                            service={ap.service}
-                                            tecnico={ap.tecnico}
-                                            client={ap.cliente}
-                                            price={ap.price}
-                                            skills={ap.specialty}
-                                            booking_date={ap.booking_date}
-                                            booking_hour={ap.booking_hour}
-                                            clickEdit={ClickEdit}
-                                            clickDelete={ClickDelete}
-                                        />
+                                    key={ap.id_appointment}
+                                    id_appointment={ap.id_appointment}
+                                    service={ap.service}
+                                    tecnico={ap.tecnico}
+                                    client={ap.cliente}
+                                    price={ap.price}
+                                    skills={ap.specialty}
+                                    booking_date={ap.booking_date}
+                                    booking_hour={ap.booking_hour}
+                                    clickEdit={ClickEdit}
+                                    clickDelete={ClickDelete}
+                                />
                                 )
                             })}
                         </tbody>
