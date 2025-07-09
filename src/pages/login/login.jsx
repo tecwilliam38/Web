@@ -34,15 +34,7 @@ function LoginScreen() {
                 // Armazenar os dados da response em variáveis - "sessionToken, sessionId..."
                 const dados = await response.data;
                 api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
-                login(dados); // Armazena no contexto e sessionStorage
-                // setTimeout(() => {
-                //     <>
-                //         <button className="btn btn-primary" type="button" disabled>
-                //             <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                //             <span role="status">Loading...</span>
-                //         </button>
-                //     </>
-                // }, 5000);
+                login(dados); 
                 navigate("/appointments");
             } else {
                 console.log(response);
