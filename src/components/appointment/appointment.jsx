@@ -18,7 +18,7 @@ function Appointment(props) {
     console.log(props.price);
 
     const dt = new Date(props.booking_date);
-    const price = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);
+    const preco = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);
 
     return <tr>
         <td>{props.client}</td>
@@ -27,18 +27,19 @@ function Appointment(props) {
         <td>
             {new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)}-{props.booking_hour}h
         </td>
+        <td>{preco}</td>
         <td className="text-end">{props.skills}</td>
-        <td className="text-end">
-            <div className="d-inline me-3">
+        <td className="text-end justify-content-between">
+            {/* <div className="d-inline me-3"> */}
                 <button onClick={() => props.clickEdit(props.id_appointment)}
-                    className="btn btn-sm btn-primary">
+                    className="btn btn-sm btn-primary my-2">
                     <i className="bi bi-pencil-square"></i>
                 </button>
                 <button onClick={() => props.clickDelete(props.id_appointment)}
                     className="btn btn-sm btn-danger">
                     <i className="bi bi-trash"></i>
                 </button>
-            </div>
+            {/* </div> */}
         </td>
     </tr>
 }

@@ -192,6 +192,7 @@ function Appointments() {
                                 <th scope="col" className="h5">Técnico</th>
                                 <th scope="col" className="h5">Serviço</th>
                                 <th scope="col" className="h5">Data/Hora</th>
+                                <th scope="col" className="h5">Preço</th>
                                 <th scope="col" className="h5 text-end">Competências</th>
                                 <th scope="col" className="col-buttons"></th>
                             </tr>
@@ -204,7 +205,7 @@ function Appointments() {
                                     service={ap.service}
                                     tecnico={ap.tecnico}
                                     client={ap.cliente}
-                                    price={ap.price}
+                                    price={ap.preco}
                                     skills={ap.specialty}
                                     booking_date={ap.booking_date}
                                     booking_hour={ap.booking_hour}
