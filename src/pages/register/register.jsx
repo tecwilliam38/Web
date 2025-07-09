@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import { useState } from "react";
 import api from "../../constants/api.js";
 import { useAuth } from "../../constants/authContext.jsx";
+import Navbar from "../../components/navbar/navbar.jsx";
 
 function RegisterTecnicoComponent() {
 
@@ -58,6 +59,7 @@ function RegisterTecnicoComponent() {
 
 
     return <div className="bgImage">
+        <Navbar/>
         <div className="col-sm-5 d-flex justify-content-center align-items-center text-center">
 
             <form className="form-signin">
