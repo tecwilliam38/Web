@@ -185,14 +185,14 @@ function Appointments() {
                     </div>
 
 
-                    <table className="table table-hover table-responsive shadow rounded">
+                    <table className="table table-hover shadow rounded">
                         <thead>
                             <tr className="border">
-                                <th scope="col" className="h4">Cliente</th>
-                                <th scope="col" className="h4">Técnico</th>
-                                <th scope="col" className="h4">Serviço</th>
-                                <th scope="col" className="h4">Data/Hora</th>
-                                <th scope="col" className="h4 text-end">Competências</th>
+                                <th scope="col" className="h5">Cliente</th>
+                                <th scope="col" className="h5">Técnico</th>
+                                <th scope="col" className="h5">Serviço</th>
+                                <th scope="col" className="h5">Data/Hora</th>
+                                <th scope="col" className="h5 text-end">Competências</th>
                                 <th scope="col" className="col-buttons"></th>
                             </tr>
                         </thead>
