@@ -5,6 +5,7 @@ import api from "../../constants/api";
 import Navbar from "../../components/navbar/navbar.jsx";
 // import icon from "../../constants/icon.js";
 import "./style.css";
+import { useAuth } from "../../constants/authContext.jsx";
 
 
 function ClientComponent() {
@@ -15,7 +16,8 @@ function ClientComponent() {
   const [termo, setTermo] = useState('');
   const [clientes, setClientes] = useState([]);
 
-  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+  const { user } = useAuth();
+ 
   async function LoadClients() {
     try {
       const response = await api.get("client/listar", {
@@ -34,19 +36,19 @@ function ClientComponent() {
   }
 
   async function buscarClientes() {
-    try {
-      // const res = await axios.post(`/client/buscar?termo=${termo}`);
-      const res = await api.post('/client/buscar', { termo },{
+    try {      
+      const res = await api.post('/client/buscar', { termo }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setClientes(res.data);
+      setTermo('');
       console.log(res.data);
     } catch (err) {
       console.error('Erro ao buscar clientes', err);
       console.log(err.response.data.error);
     }
   };
-  
+
   useEffect(() => {
     LoadClients();
   }, [])
@@ -61,65 +63,87 @@ function ClientComponent() {
         onChange={e => setTermo(e.target.value)}
         aria-label="Pesquisar" />
       <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={buscarClientes}>Pesquisar</button>
-
-      <ul>
-        {clientes?.map((s) =>{
-          return<div className="col-12  col-lg-12 col-md-12 mt-2" key={s.id_client}>
-              <div className="card shadow-lg border card-shadow">
-                <div className="card-body">
-                  <h1>Resultado:</h1>
-                  <h5 className="card-title">{s.name}</h5>
-                  <p className="card-text">Inep: {s.inep} </p>
-                  <p className="card-text">Endereço rua:<br />{s.endereco_rua}, {s.endereco_bairro}, {s.endereco_cidade} </p>
-                  {/* <div className="text-end justify-content-between">
-                    <button onClick={() => props.clickEdit(props.id_appointment)}
-                      className="btn btn-sm btn-primary my-2">
-                      <i className="bi bi-pencil-square"></i>
-                    </button>
-                    <button onClick={() => props.clickDelete(props.id_appointment)}
-                      className="btn btn-sm btn-danger">
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </div> */}
-                </div>
-              </div>
+     
+      {clientes.map((c) => {
+        return <div className="container mt-5 border p-3 rounded shadow" key={c.id_client}>
+          <h3>📄 Ficha de Cadastro de Clientes</h3>
+          <form className="mt-4">
+            <div className="mb-3">
+              <label className="form-label">Nome da Escola</label>
+              <input
+                type="text"
+                name="escola"
+                className="form-control"
+                value={c.name}
+              />
             </div>
-          })}
-      </ul>
 
-      <div className="row d-flex justify-content-center mb-5">
-        <div className="container-fluid border">
-          {clients?.map((c) => {
-            return <div className="col-12  col-lg-12 col-md-12 mt-2" key={c.id_client}>
-              <div className="card shadow-lg border card-shadow">
-                <div className="card-body">
-                  <h5 className="card-title">{c.name}</h5>
-                  <p className="card-text">Inep: {c.inep} </p>
-                  <p className="card-text">Endereço rua:<br />{c.endereco_rua}, {c.endereco_bairro}, {c.endereco_cidade} </p>
-                  <div className="text-end justify-content-between">
-                    <button onClick={() => props.clickEdit(props.id_appointment)}
-                      className="btn btn-sm btn-primary my-2">
-                      <i className="bi bi-pencil-square"></i>
-                    </button>
-                    <button onClick={() => props.clickDelete(props.id_appointment)}
-                      className="btn btn-sm btn-danger">
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            <div className="mb-3">
+              <label className="form-label">Código INEP</label>
+              <input
+                type="text"
+                name="inep"
+                className="form-control"
+                value={c.inep}
+              />
             </div>
-          })}
+
+            <div className="mb-3">
+              <label className="form-label">Endereço</label>
+              <textarea
+                name="endereco"
+                className="form-control"
+                value={'Rua ' + c.endereco_rua + ',\nBairro ' + c.endereco_bairro + ', Cidade ' + c.endereco_cidade}
+                rows="3"
+              />
+            </div>
+
+            <button type="submit" className="btn btn-primary">Salvar</button>
+            <button type="submit" className="btn btn-danger mx-2">Editar</button>
+          </form>
         </div>
-      </div>
-      {/* {services?.map((s)=>{
-                    return<>
-                    <div key={s.id_barber_service} className="w-100">
-                      {s.}
-                    </div>
-                    </>
-                  })} */}
-    </div >
+      })}
+
+      {clients.map((c) => {
+        return <div className="container mt-5 border p-3 rounded shadow" key={c.id_client}>
+          <h3>📄 Ficha de Cadastro de Clientes</h3>
+          <form className="mt-4">
+            <div className="mb-3">
+              <label className="form-label">Nome da Escola</label>
+              <input
+                type="text"
+                name="escola"
+                className="form-control"
+                value={c.name}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Código INEP</label>
+              <input
+                type="text"
+                name="inep"
+                className="form-control"
+                value={c.inep}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label">Endereço</label>
+              <textarea
+                name="endereco"
+                className="form-control"
+                value={'Rua ' + c.endereco_rua + ',\nBairro ' + c.endereco_bairro + ', Cidade ' + c.endereco_cidade}
+                rows="3"
+              />
+            </div>
+
+            <button  className="btn btn-primary">Salvar</button>
+            <button onClick={() => props.clickEdit(props.id_appointment)} className="btn btn-danger mx-2">Editar</button>
+          </form>
+        </div>
+      })}
+    </div>
   </>
 
 }
