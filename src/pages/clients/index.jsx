@@ -17,7 +17,7 @@ function ClientComponent() {
   const [clientes, setClientes] = useState([]);
 
   const { user } = useAuth();
- 
+
   async function LoadClients() {
     try {
       const response = await api.get("client/listar", {
@@ -36,7 +36,7 @@ function ClientComponent() {
   }
 
   async function buscarClientes() {
-    try {      
+    try {
       const res = await api.post('/client/buscar', { termo }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
@@ -55,15 +55,15 @@ function ClientComponent() {
 
   return <>
     <Navbar />
-    <div className="container-fluid mt-page">
-
+    <div className="container-fluid justify-content-center align-items-center mt-page">
       <input className="form-control mr-sm-2" type="search"
         placeholder="Digite o nome do cliente..."
         value={termo}
         onChange={e => setTermo(e.target.value)}
         aria-label="Pesquisar" />
       <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={buscarClientes}>Pesquisar</button>
-     
+      {clientes.map ? <div></div> : <><h2>Resultados da Pesquisa:</h2></>}
+
       {clientes.map((c) => {
         return <div className="container mt-5 border p-3 rounded shadow" key={c.id_client}>
           <h3>📄 Ficha de Cadastro de Clientes</h3>
@@ -138,7 +138,7 @@ function ClientComponent() {
               />
             </div>
 
-            <button  className="btn btn-primary">Salvar</button>
+            <button className="btn btn-primary">Salvar</button>
             <button onClick={() => props.clickEdit(props.id_appointment)} className="btn btn-danger mx-2">Editar</button>
           </form>
         </div>
