@@ -12,3 +12,14 @@
     border: 1px solid #fff !important;
     padding: 10px;
 }
+.nav-item a:active{
+  color: #ffffff !important;
+}
+
+.nav-item a:focus{
+  color: #354436 !important;
+}
+
+a{
+  color:#000;
+}

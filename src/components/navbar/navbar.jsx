@@ -27,15 +27,6 @@ function Navbar() {
                     <li className="nav-item">
                         <Link className="nav-link active" to="/appointments">Agendamentos</Link>
                     </li>
-                    {/* <li className="nav-item">
-                        <Link className="nav-link" to="/appointments/tecnicos">Técnicos</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" user={user} to="/appointments/clients">Clientes</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" user={user} to="/cadastro/tecnicos">Cadastro de Técnicos</Link>
-                    </li> */}
                 </ul>
                 <ul className="navbar-nav ">
                     <li className="nav-item">
@@ -53,7 +44,7 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" user={user} to="/cadastro/tecnicos">Cadastro de Técnicos</Link>
                                 </li>
-                                <li><Link className="dropdown-item" to="/appointments/profile">Meu Perfil</Link></li>
+                                <li><Link className="nav-link" to="/appointments/profile">Meu Perfil</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><button className="dropdown-item" onClick={Logout}>Desconectar</button></li>
                             </ul>

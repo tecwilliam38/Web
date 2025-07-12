@@ -12,9 +12,11 @@ function ClientComponent() {
   const navigate = useNavigate();
   const [clients, setClients] = useState([]);
   const [idClient, setIdClient] = useState("");
-  
+  const [termo, setTermo] = useState('');
+  const [clientes, setClientes] = useState([]);
+
+  const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
   async function LoadClients() {
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     try {
       const response = await api.get("client/listar", {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -22,74 +24,102 @@ function ClientComponent() {
 
       if (response.data) {
         setClients(response.data)
-        // console.log(response.data.id_client);
-        
+        console.log(response.data.rows.inep);
+
       }
     } catch (error) {
       if (error.response?.data.error)
         console.log(error.response.data.error);
     }
   }
-  // async function LoadServices(id) {
 
-  //   if (!id)
-  //     return;
-
-  //   try {
-  //     const response = await api.get("/barbers/" + id + "/services");
-
-  //     if (response.data) {
-  //       setServices(response.data);
-  //     }
-
-  //   } catch (error) {
-  //     if (error.response?.data.error) {
-  //       if (error.response.status == 401)
-  //         return navigate("/");
-
-  //       alert(error.response?.data.error);
-  //     }
-  //     else
-  //       alert("Erro ao listar serviços");
-  //   }
-  // }
-
-
+  async function buscarClientes() {
+    try {
+      // const res = await axios.post(`/client/buscar?termo=${termo}`);
+      const res = await api.post('/client/buscar', { termo },{
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      setClientes(res.data);
+      console.log(res.data);
+    } catch (err) {
+      console.error('Erro ao buscar clientes', err);
+      console.log(err.response.data.error);
+    }
+  };
+  
   useEffect(() => {
     LoadClients();
-    // LoadServices();
   }, [])
-  // const m = "M";
 
   return <>
     <Navbar />
     <div className="container-fluid mt-page">
-      <div className="row d-flex justify-content-center mb-5">
-        <div className="container-fluid border">
-        {clients?.map((c) => {
-          return <div className="col-12  col-lg-12 col-md-12 mt-2" key={c.id_client}>
+
+      <input className="form-control mr-sm-2" type="search"
+        placeholder="Digite o nome do cliente..."
+        value={termo}
+        onChange={e => setTermo(e.target.value)}
+        aria-label="Pesquisar" />
+      <button className="btn btn-outline-success my-2 my-sm-0" type="button" onClick={buscarClientes}>Pesquisar</button>
+
+      <ul>
+        {clientes?.map((s) =>{
+          return<div className="col-12  col-lg-12 col-md-12 mt-2" key={s.id_client}>
               <div className="card shadow-lg border card-shadow">
-                {/* <img className="icon-barber" src={icon == m ? icon.female : icon.male} alt="Imagem de capa do card" /> */}
                 <div className="card-body">
-                  <h5 className="card-title">{c.name}</h5>
-                  <p className="card-text">{c.doc_id} </p>
-                  <p className="card-text">{c.endereco_rua} </p>
-                  <p className="card-text">{c.endereco_bairro} </p>
-                 
+                  <h1>Resultado:</h1>
+                  <h5 className="card-title">{s.name}</h5>
+                  <p className="card-text">Inep: {s.inep} </p>
+                  <p className="card-text">Endereço rua:<br />{s.endereco_rua}, {s.endereco_bairro}, {s.endereco_cidade} </p>
+                  {/* <div className="text-end justify-content-between">
+                    <button onClick={() => props.clickEdit(props.id_appointment)}
+                      className="btn btn-sm btn-primary my-2">
+                      <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <button onClick={() => props.clickDelete(props.id_appointment)}
+                      className="btn btn-sm btn-danger">
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </div> */}
                 </div>
               </div>
-            </div>        
-        })}
+            </div>
+          })}
+      </ul>
+
+      <div className="row d-flex justify-content-center mb-5">
+        <div className="container-fluid border">
+          {clients?.map((c) => {
+            return <div className="col-12  col-lg-12 col-md-12 mt-2" key={c.id_client}>
+              <div className="card shadow-lg border card-shadow">
+                <div className="card-body">
+                  <h5 className="card-title">{c.name}</h5>
+                  <p className="card-text">Inep: {c.inep} </p>
+                  <p className="card-text">Endereço rua:<br />{c.endereco_rua}, {c.endereco_bairro}, {c.endereco_cidade} </p>
+                  <div className="text-end justify-content-between">
+                    <button onClick={() => props.clickEdit(props.id_appointment)}
+                      className="btn btn-sm btn-primary my-2">
+                      <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <button onClick={() => props.clickDelete(props.id_appointment)}
+                      className="btn btn-sm btn-danger">
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          })}
+        </div>
       </div>
-    </div>
-     {/* {services?.map((s)=>{
+      {/* {services?.map((s)=>{
                     return<>
                     <div key={s.id_barber_service} className="w-100">
                       {s.}
                     </div>
                     </>
                   })} */}
-  </div >
+    </div >
   </>
 
 }
