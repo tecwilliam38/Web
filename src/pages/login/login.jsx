@@ -75,7 +75,7 @@ function LoginScreen() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <i
-                                className={`bi ${visible ? "bi-eye-slash" : "bi-eye"} position-absolute`}
+                                className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
                                 onClick={() => setVisible(!visible)}
                                 style={{
                                     fontSize: "1.3rem",
