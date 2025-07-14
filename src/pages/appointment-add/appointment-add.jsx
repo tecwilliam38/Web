@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../constants/api.js";
 
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from "../../constants/authContext.jsx";
 
 function AppointmentAdd() {
 
@@ -14,6 +15,7 @@ function AppointmentAdd() {
     const [idClients, setIdClients] = useState("");
     const [tecnicos, setTecnicos] = useState([]);
     const [services, setServices] = useState([]);
+    const [status, setStatus] = useState("");
 
     const [idUser, setIdUser] = useState("");
     const [idTecnico, setIdTecnico] = useState();
@@ -21,7 +23,8 @@ function AppointmentAdd() {
     const [bookingDate, setBookingDate] = useState("");
     const [bookingHour, setBookingHour] = useState("");
 
-    const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+    // const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+    const {user} = useAuth();
 
     async function LoadClients() {
         try {
@@ -75,6 +78,7 @@ function AppointmentAdd() {
                 setIdClients(response.data.id_client);
                 setIdTecnico(response.data.id_tecnico);
                 setIdService(response.data.id_service);
+                setStatus(response.data.status);
                 setBookingDate(response.data.booking_date);
                 setBookingHour(response.data.booking_hour);
             }
@@ -123,6 +127,7 @@ function AppointmentAdd() {
             id_client: idClients,
             id_tecnico: idTecnico,
             id_service: idService,
+            status,
             booking_date: bookingDate,
             booking_hour: bookingHour
         };
@@ -156,22 +161,14 @@ function AppointmentAdd() {
                 alert("Erro ao salvar dados");
         }
     }
-    // else {
-    //     toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
-    //      setTimeout(() => {
-    //          setBookingDate(""), setBookingHour("")                    
-    //      }, 6000))
-    // }
-
+ 
     useEffect(() => {
         LoadClients();
-        LoadTecnicos();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        LoadTecnicos(); 
     }, []);
 
     useEffect(() => {
-        LoadServices(idTecnico);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        LoadServices(idTecnico);       
     }, [idTecnico]);
 
     return <>
@@ -182,7 +179,7 @@ function AppointmentAdd() {
             position="top-center" />
         <Navbar />
         <div className="container-fluid mt-page mb-5">
-            <div className="row col-lg-4 offset-lg-4 rounded shadow-lg px-4 py-3">
+            <div className="row col-lg-8 offset-lg-2 rounded shadow-lg px-4 py-3">
                 <div className="col-12 mt-1 text-center">
                     <h2>
                         {
@@ -237,15 +234,15 @@ function AppointmentAdd() {
                     </div>
                 </div>
 
-                <div className="col-6 mt-2">
+                <div className="col-3 mt-2">
                     <label htmlFor="bookingDate" className="form-label">Data</label>
                     <input type="date" className="form-control" name="bookingDate" id="bookingDate"
                         value={bookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
                     />
-                </div>
+                </div>             
 
-                <div className="col-6 mt-2">
+                <div className="col-3 mt-2">
                     <label htmlFor="bookingHour" className="form-label">Horário</label>
                     <div className="form-control mb-2">
                         <select name="bookingHour" id="bookingHour"
@@ -273,6 +270,21 @@ function AppointmentAdd() {
                             <option value="17:30">17:30</option>
                             <option value="18:00">18:00</option>
                             <option value="18:30">18:30</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="col-3 mt-2">
+                    <label htmlFor="bookingHour" className="form-label">Status</label>
+                    <div className="form-control mb-2">
+                        <select name="bookingHour" id="bookingHour"
+                            value={status} onChange={(e) => setStatus(e.target.value)} >
+                            <option value="Status">Status</option>
+                            <option value="Agendado">Agendado</option>
+                            <option value="Em andamento">Em andamento</option>
+                            <option value="Em deslocamento">Em deslocamento</option>
+                            <option value="No cliente">No cliente</option>
+                            <option value="Cancelado">Cancelado</option>
+                            <option value="Finalizado">Finalizado</option>                        
                         </select>
                     </div>
                 </div>

@@ -20,13 +20,8 @@ function RegisterTecnicoComponent() {
     const { user } = useAuth();
     const [visible, setVisible] = useState(false);
 
-    async function ExecuteAccount() {
-        // navigate("/appointments");
+    async function ExecuteAccount() {        
         setMsg("");
-
-        if (password != password2)
-            return setMsg("As senhas não conferem. Digite novamente.");
-
         try {
             const response = await api.post("/tecnicos/register", {
                 name,
@@ -39,8 +34,7 @@ function RegisterTecnicoComponent() {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
-            if (response.data) {
-                // alert("cadastrou")
+            if (response.data) {                
                 navigate("/appointments");
 
             } else
@@ -109,7 +103,7 @@ function RegisterTecnicoComponent() {
                             className="form-control"
                             onChange={(e) => setPassword(e.target.value)} />
                         <i
-                            className={`bi ${visible ? "bi-eye-slash" : "bi-eye"} position-absolute`}
+                            className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
                             onClick={() => setVisible(!visible)}
                             style={{
                                 fontSize: "1.3rem",

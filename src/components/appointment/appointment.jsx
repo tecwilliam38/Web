@@ -17,8 +17,6 @@ Appointment.propTypes = {
 
 function Appointment(props) {
 
-    const [status, setStatus] = useState(props.status)
-
     const dt = new Date(props.booking_date);
     const preco = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);
     function ChangeStatus(e) {
@@ -31,18 +29,7 @@ function Appointment(props) {
         <td>
             {new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)}-{props.booking_hour}h
         </td>
-        <td>
-            <select name="barber" id="barber" value={status} onChange={ChangeStatus}>
-                <option value={status}>{status}</option>
-                {/* <option value="Em andamento">Em Andamento</option>              
-                <option value="">Em deslocamento</option>              
-                <option value="">Agendado</option>              
-                <option value="">Em atendimento</option>              
-                <option value="">Cancelado</option>              
-                <option value="">Concluído</option>               */}
-            </select>
-
-        </td>
+        <td>{props.status}</td>
         <td>{preco}</td>
         <td className="text-end">{props.skills}</td>
         <td className="text-end justify-content-between">

@@ -16,7 +16,7 @@ function Appointments() {
 
     const navigate = useNavigate();
     const [appointments, setAppointments] = useState([]);
-    const [barbers, setBarbers] = useState([]);
+    const [tecnicos, setTecnicos] = useState([]);
 
     const [idBarber, setIdBarber] = useState("");
     const [idTecnico, setIdTecnico] = useState("");
@@ -90,14 +90,37 @@ function Appointments() {
         }
     }, [idBarber, dtStart, dtEnd]);
 
+    async function LoadTecnicos() {
+    
+            try {
+                const response = await api.get("/tecnicos/listar", {
+            headers: { Authorization: `Bearer ${user.token}` }
+        });
+    
+                if (response.data) {
+                    setTecnicos(response.data);
+                }
+    
+            } catch (error) {
+                if (error.response?.data.error) {
+                    if (error.response.status == 401)
+                        return navigate("/");
+    
+                    alert(error.response?.data.error);
+                }
+                else
+                    alert("Erro ao listar técnicos.");
+            }
+        }
 
     useEffect(() => {
+        LoadTecnicos();
         LoadAppointments();
-    }, [LoadAppointments]);
+    }, []);
 
 
-    function ChangeBarber(e) {
-        setIdBarber(e.target.value);
+    function ChangeTecnico(e) {
+        setIdTecnico(e.target.value);
     }
 // Inep add
     return (
@@ -168,12 +191,12 @@ function Appointments() {
                             <input id="endtDate" className="form-control" type="date"
                                 onChange={(e) => setDtEnd(e.target.value)} />
                             <div className="form-control ms-2 me-2">
-                                <select name="barber" id="barber" value={idBarber} onChange={ChangeBarber}>
+                                <select name="barber" id="barber" value={idBarber} onChange={ChangeTecnico}>
                                     <option value="">Todos os Técnicos</option>
                                     {
-                                        barbers.map((data) => {
-                                            return <option key={data.id_barber}
-                                                value={data.id_barber}>
+                                        tecnicos?.map((data) => {
+                                            return <option key={data.id_tecnico}
+                                                value={data.id_tecnico}>
                                                 {data.name}
                                             </option>
                                         })
