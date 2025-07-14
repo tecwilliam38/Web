@@ -7,3 +7,6 @@
     box-shadow: 7px 2px 20px 8px #ccc !important;
     border-radius: 14px !important;
 }
+textarea{
+    resize:none;
+}

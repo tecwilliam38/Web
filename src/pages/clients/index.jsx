@@ -94,7 +94,7 @@ function ClientComponent() {
                 name="endereco"
                 className="form-control"
                 value={'Rua ' + c.endereco_rua + ',\nBairro ' + c.endereco_bairro + ', Cidade ' + c.endereco_cidade}
-                rows="3"
+                rows="3"                                
               />
             </div>
 
