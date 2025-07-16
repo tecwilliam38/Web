@@ -48,8 +48,7 @@ function LoginScreen() {
             console.log(error);
 
         }
-    }
-    // <Link onClick={()=>setShowPass("text")}>Exibir senha</Link>
+    }    
     return (
         <div className="bgImage container-fluid min-vh-100 d-flex align-items-center justify-content-center">
             <div className="row w-100">
@@ -75,16 +74,8 @@ function LoginScreen() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <i
-                                className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
-                                onClick={() => setVisible(!visible)}
-                                style={{
-                                    fontSize: "1.3rem",
-                                    top: "50%",
-                                    right: "15px",
-                                    transform: "translateY(-50%)",
-                                    cursor: "pointer",
-                                    color: "#7b7e80"
-                                }}
+                                className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute eye-style`}
+                                onClick={() => setVisible(!visible)}                             
                             ></i>
                         </div>
 
